@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="Tracking">
+<head>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>D-ASSIST $ CONVERTER</title>
+    
+<!-- build:css css/css.min.css -->
+<!-- Plugin Styles -->
+<link href="css/plugins/reset.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/font-awesome.css" rel="stylesheet" type="text/css" />
+<link href="css/plugins/jquery-ui.css" rel="stylesheet">
+<link href="css/plugins/jquery.mCustomScrollbar.css" rel="stylesheet">
+<link href="css/plugins/jquery.dataTables.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/jquery.treetable.css" rel="stylesheet" type="text/css" />
+<link href="css/plugins/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css" />
+<link href="css/plugins/dataTables.tableTools.min.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/jquery.fileupload.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/jquery.fileupload-ui.css" rel="Stylesheet" type="text/css"/>
+<!-- Custom Styles -->
+<link href="css/Style.css" rel="Stylesheet" type="text/css" />
+<link href="css/New.css" rel="Stylesheet" type="text/css" />
+<link href="css/device.css" rel="Stylesheet" type="text/css" />
+<link href="css/Charts.css" rel="Stylesheet" type="text/css" />
+ <!-- endbuild -->
+ 
+</head>
+<body ng-controller="mainAppContent" ng-cloak>
+    <div class="mainContainer">
+		<div class="header-bg clearfix">
+        <ng-include src="'partials/header.htm'"></ng-include>
+        <nav id="menu-container" class="has-submenu">
+            <ul class="tab-menu">
+                <li><a href="home.htm">
+                    <div>
+                        {{labelConstants.home_tab}}</div>
+                </a></li>
+                <li ng-if = "isTrackTabVisible"><a href="#" class="active">
+                    <div>
+                        {{labelConstants.track_tab}}</div>
+                </a>
+                    <ul ng-controller="navLinkController">
+                        <li class="first"><a ng-if = "isSummaryTabVisible" href="#/summary" ng-class="{active: thisPage=='/summary'}">{{labelConstants.summary_tab}}</a></li>
+                        <li><a  ng-if = "isBusinessImpactTabVisible" href="#/business-impact" ng-class="{active: thisPage=='/business-impact'}">{{labelConstants.business_impact_tab}}</a></li>
+                        <li><a  ng-if = "isEngagementTabVisible" href="#/engagement-activity"  ng-class="{active: thisPage=='/engagement-activity'}">{{labelConstants.engagement_activity_tab}}</a></li>
+                      <!--   <li><a href="#/channel-tracker" ng-class="{active: thisPage=='/channel-tracker'}">Channel Tracker</a></li>
+                        <li><a href="#/campaign-tracker" ng-class="{active: thisPage=='/campaign-tracker'}">Campaign Tracker</a></li> -->
+                        <li><a  ng-if = "isUserGroupTabVisible" href="#/user-group-engagement" ng-class="{active: thisPage=='/user-group-engagement'}">{{labelConstants.user_group_tab}}</a></li>
+                    </ul>
+                </li>
+                <li ng-if="isDecisionWorkbenchTabVisible"><a href="decision-workbench.htm">
+                    <div>
+                        {{labelConstants.decision_workbench_tab}}</div>
+                </a></li>
+                <li ng-if="isSettingsTabVisible"><a href="settings.htm">
+                    <div>
+                        {{labelConstants.settings_tab}}</div>
+                </a></li>
+            </ul>
+        </nav>
+		</div>
+        <div id="contentarea">
+        		<div class="breadcrumbTrackContainer" ng-controller = "commonController">
+				<div id="trialPanel">
+					<ul>
+						<li><a class="freeMode" href="#" ng-click="userModeSelected('free')">Free Trial</a></li>
+						<li class="active"><a class="freeMode" href="#" ng-click="userModeSelected('freemium')">Freemium</a></li>
+					</ul>
+				</div>
+				<div id="exportIconsPanel">
+					<ul>
+						<li title="Print" class="Printicon">&nbsp;</li>
+						<li class="iconExport export">
+							<ul>
+								<li class="top"><a href="#" alt="Export to Pdf"
+									title="Export to Pdf">
+										<figure>
+											<img src="images/icon-pdf.png" />
+										</figure>
+								</a></li>
+								<li><a href="#" alt="Export to Excel" title="Export to Excel">
+										<figure>
+											<img src="images/icon-excel.png" />
+										</figure>
+								</a></li>
+								<li><a href="#" alt="Export to Word" title="Export to Word">
+										<figure>
+											<img src="images/icon-word.png" />
+										</figure>
+								</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<section>
+					<div class="pull-right">
+						<div class="pull-right">
+							<div class="pull-left ">
+								<div class="pull-left Div1">Time Period</div>
+								<div class="pull-left Div2">
+									<select
+										ng-options="period as period.value for period in periods"
+										ng-model="selected" ng-change="broadcastPeriodChange()">
+									</select> 
+								</div>
+								<div class="pull-left"><input type="submit" class="btn btn-org pull-left"
+										value="Filter" ng-click="broadcastTimeFilterValues()">
+									</div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="Div3 date-filters">
+								Date <input type="text" placeholder="MM/DD/YYYY"
+									ng-model="selectedDate" datepicker />
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="transparentMask"></div>
+         <div ng-view></div>
+        </div>
+    </div>
+    <footer id="footerContainer">
+        <section class="footerInsidePannel"> &copy; 2014 Absolutdata. All rights reserved. </section>
+    </footer>
+    <!-- build:js js/libraries.min.js -->
+	<!-- Framework related JS -->
+	<script type="text/javascript" src="js/lib/jquery/jquery-1.11.1.min.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.js" ></script>
+	<script type="text/javascript" src="js/lib/angular/angular-route.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-route.min.js.map"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-cache.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.min.js.map"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-treetable.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-dragdrop.min.js" ></script>
+	 <!-- endbuild -->
+	  
+    <!-- Property files -->
+	<script type="text/javascript" src="js/system.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<!-- build:js js/plugins.min.js -->
+	<!-- jQuery Plugins -->
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.mCustomScrollbar.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.circles.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/Jscript-tooltip.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/moment.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/moment-range-min.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/dataTables.tableTools.min.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.treetable.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-notify-min.js" ></script>
+	<script type="text/javascript" src="js/polyfills/polyfiller.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.treetable.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.iframe-transport.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.fileupload.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.fileupload-process.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/cors/jquery.xdr-transport.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/jquery.fileupload-angular.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/tai-placeholder.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/lodash.js" ></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/restangular.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/miller-column-browser.js" ></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/chartingFiles.min.js -->
+	<!-- Charting Files -->
+  	<script type="text/javascript" src="js/lib/chart/highcharts-all.js" ></script>	
+	<script type="text/javascript" src="js/lib/chart/d3.v3.min.js" ></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/App.min.js -->
+	<!-- Angular App -->
+	<script type="text/javascript" src="app/app.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/Services.min.js -->
+	<!-- Angular Services -->
+	<script type="text/javascript" src="app/Common/services/custom.js"></script>
+	<script type="text/javascript" src="app/Common/services/utilities.js"></script>
+	<script type="text/javascript" src="app/Common/services/network.js"></script>
+	<script type="text/javascript" src="app/Common/services/storage.js"></script>
+	<script type="text/javascript" src="app/Common/services/menu.js"></script>
+	<script type="text/javascript" src="app/Common/services/constants.js"></script>
+	<script type="text/javascript" src="app/Common/services/permission.js"></script>
+	<script type="text/javascript" src="app/Common/services/charts.js"></script>
+	<script type="text/javascript" src="app/Common/services/data.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/Directives.min.js -->
+	<!-- Angular Directives -->
+	<script type="text/javascript" src="app/Common/directives/datepicker-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/slider-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/dataTable-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/elements.js"></script>
+	<script type="text/javascript" src="app/Common/directives/tooltip-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/chart-label-tooltip-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/delayedDataTable-ng.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/Filters.min.js -->
+	<!-- Angular Filters -->
+	<script type="text/javascript" src="app/Common/filters/numeric.js"></script>
+	<script type="text/javascript" src="app/Common/filters/string.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/CommonController.min.js -->
+	<!-- Common Controllers -->
+	<script type="text/javascript" src="app/Common/controllers/common.js"></script>
+	<!-- endbuild -->
+	
+	<!-- build:js js/Tracking.min.js -->
+	<!-- Tracking Controllers -->
+	<script type="text/javascript"  src="app/Tracking/controllers/summary.js"></script>
+	<script type="text/javascript"  src="app/Tracking/controllers/business-impact.js"></script>
+	<script type="text/javascript"  src="app/Tracking/controllers/channel-tracker.js"></script>
+	<script type="text/javascript"  src="app/Tracking/controllers/engagement-activity.js"></script>
+	<script type="text/javascript"  src="app/Tracking/controllers/user-group-engagement.js"></script>
+	<script type="text/javascript"  src="app/Tracking/controllers/campaign-tracker.js"></script>
+	
+   <!-- Tracking Services -->
+   <script type="text/javascript"  src="app/Tracking/services/data.js"></script>
+   <script type="text/javascript"  src="app/Tracking/services/chartoptions.js"></script>
+   <script type="text/javascript"  src="app/Tracking/services/converter.js"></script>
+   <!-- endbuild -->
+   
+   
+</body>
+</html>

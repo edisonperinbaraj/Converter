@@ -1,0 +1,291 @@
+<div id="contentContainer"  >
+	<div id="Decision">
+		<div class="contentpannel1" > 
+		<div ng-controller="acquisitionFunnelController" ng-if="isFunnelViewable">
+			<div class="AcquisitionPanel" >
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_summary_funnel}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<a href="#" class="help tooltip-new">
+					<figure>
+						<img src="images/icon-info.png" />
+					</figure>
+					<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_FUNNEL}}</span>
+				</a>
+				<div class="filterContainer">
+					<div class="contentPanel">
+					<p class="widget-title">{{title}}</p>
+                        <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'" class=" forChart"></ng-include>
+						
+						<ul ng-hide="error || !dataLoaded"  class="funnel-list clearfix">
+							<li class="visitors">
+								<h3>{{labelConstants.track_summary_funnel_visitors}}</h3>
+								<div class="count">
+									{{visitors.actualTillDate| number}}
+									<div id="sparkleLineRegistration"></div>
+								</div>
+								<div class="count">
+									<div id="sparkleLineVisitor"></div>
+								</div>
+								<div class="chart"></div>
+							</li>
+							<li class="registrations">
+								<h3>{{labelConstants.track_summary_funnel_registrations}}</h3>
+								<div class="count">
+									{{registrations.actualTillDate| number}}
+									 <span>{{labelConstants.track_summary_funnel_acquisistionRate}}: {{registrations.acquisitionRate}}%</span>
+									<div id="sparkleLineRegistration"></div>
+								</div>
+								<div class="chart"></div>
+							</li>
+							<li class="subscriptions">
+								<h3>{{labelConstants.track_summary_funnel_subscriptions}}</h3>
+								<div class="count">
+									{{subscriptions.actualTillDate| number}} <span>{{labelConstants.track_summary_funnel_conversionRate}}
+										: {{subscriptions.conversionRate}}%</span>
+								</div>
+								<div class="chart"></div>
+							</li>
+							<li class="cancellations">
+								<h3>{{labelConstants.track_summary_funnel_cancellations}}</h3>
+								<div class="count">
+									{{cancellations.actualTillDate| number}}
+									 <span>{{labelConstants.track_summary_funnel_churnRate}} :
+										{{cancellations.churnRate}}%</span>
+								</div>
+								<div class="chart"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="acquisitionTrendController" ng-if="isTrendViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_summary_trend}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="filterContainer">
+					<div class="contentPanel contentPanel-trend">
+					 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'" class=" forChart"></ng-include>
+						<!-- <p class="widget-title  chart-title">Revenues vs
+							Subcriptions/Cancellations</p> -->
+						<div ng-hide="error || !dataLoaded" class="DivAcquisitionChart" id="acquisitionTrendChart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-if="isMetricsViewable"> 
+			<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Metrics</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="filterContainer">
+				<div ng-controller="businessImpactMatricesController">
+					<div class="contentPanel contentPanel1" ng-if ="isBusinessImpactViewable">
+						<p class="widget-title">{{title}}</p>
+						<p class="widget-title pull-right">As of {{currentDate |
+							date:'EEEE'}}, {{currentDate | date:'dd MMM yyyy'}}</p>
+						<h2 class="block-title">{{labelConstants.track_summary_metrics_businessImpact}}</h2>
+						<a href="javascript:;" class="pull-right filter-option-menu">
+						</a> 
+						<div class="options-filter width clearfix" style="display: block;">
+							<img src="images/popmenu-arrow.png" class="popmenu-arrow">
+							<div >
+								<div class="popupTitle">
+									<label> Select widget</label>
+								</div>
+								<div class="popupcnt top" ng-repeat="data in userSettings.menus">
+									<div class="height">
+										<input type="checkbox" ng-model="data.checked"
+											ng-change="menu.onSelect(data)"  ng-checked="data.checked == true"> <label>{{data.menuName}}</label>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" data-page="businessImpact" class="box-list clearfix">
+						{{menu.menuSynced}}
+							<li ng-repeat="data in businessImpact"
+								ng-hide="data.display == false" ng-if="menuSynced">
+								<div class="box-list-innerwrap ">
+									<div class="box-listShadow">
+										<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">
+												{{Tooltip.TOOLTIP_TRAC_SUMMARY_BUSINESSIMPACT[data.subGroupBy]}}</span>
+										</a>
+									<a href="#/business-impact?currentlySelected={{data.subGroupBy}}&&name={{data.subgroupName}}"> 
+										<div class="box-content-top">
+											<h3>{{data.subgroupName}}</h3>
+												<div class="value-orange trackingLink">
+												{{data.actualToDate | number}}</div>
+											<!-- <p class="duration">Week To Date Actual</p> -->
+											<p class="value1">
+												<span>{{data.forecast.value | number}}</span>
+											</p>
+											<p class="duration1">{{forecastText}}</p>
+										</div>
+										<div class="box-content-bottom">
+											<ul>
+													<li class="{{data.versusLast.trend=='-ve'?'down':'up'}}">{{data.versusLast.value
+														| number}} {{vsLastText}}</li>
+													<li
+														class="{{data.versusSameLastYear.trend=='-ve'?'down':'up'}}">{{data.versusSameLastYear.value
+														| number}} {{vsLastYearText}}</li>
+											</ul>
+										</div>
+										</a>
+									</div>
+								</div>
+							</li>
+
+						</ul>
+						</div>
+					</div>
+				<div ng-controller="engagementActivityMatricesController" >
+					<div class="contentPanel  contentPanel2 contentPanel1" ng-if = "isEngagementMetricsViewable">
+						<h2 class="block-title">{{labelConstants.track_summary_metrics_engagementMetrics}}</h2>
+						<a href="javascript:;" class="pull-right filter-option-menu">
+						</a>
+						<div style="display: none" class="options-filter options-filter1 clearfix">
+						<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+						<div class="options-filter-left">
+							<div class="popupTitle">
+									<input type="radio" name="Module" ng-model="userSettings.selectedType" value="module" ng-change="menu.menuSync()"/> <label>
+									Module</label>
+							</div>
+								<div class="popupcnt">
+									<input type="checkbox"  checked="true" disabled="true"/><label>EA Score </label>
+								</div>
+							<div class="popupcnt" ng-repeat="data in userSettings.menus" ng-if='data.menuType=="module"'>
+								<div>
+										<input type="checkbox" ng-model="data.checked" ng-disabled="userSettings.selectedType != 'module'" ng-change="menu.onSelect(data)"/><label>{{data.menuName}} </label>
+								</div>
+							</div>
+						</div>
+						<div class="options-filter-right">
+							<div class="popupTitle">
+									<input type="radio" name="Activity"  value="activity" ng-model="userSettings.selectedType" ng-change="menu.menuSync()"/> <label>
+									Activity</label>
+							</div>
+								<div class="popupcnt">
+									<input type="checkbox"  checked="true" disabled="true"/><label>EA Score </label>
+								</div>
+							<div class="popupcnt" ng-repeat="data in userSettings.menus" ng-if='data.menuType=="activity"'>
+								<div>
+										<input type="checkbox"  ng-model="data.checked"  ng-disabled="userSettings.selectedType != 'activity'" ng-change="menu.onSelect(data)"/><label>{{data.menuName}} </label>
+								</div>
+							</div>
+						</div>
+					</div>
+						 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" data-page="engagementActivity" class="box-list clearfix">
+						
+							<li ng-repeat="data in engagementActivity" ng-hide="data.display==false" ng-if="menuSynced">
+						
+								<div class="box-list-innerwrap">
+									<div class="box-listShadow">
+									<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_ENGAGEMENT[data.subgroupName]}}</span>
+										</a>
+										<div class="box-content-top">
+											<a href="#/engagement-activity?currentlySelected={{data.subGroupBy}}&&name={{data.subgroupName}}">
+											<h3>{{data.subgroupName}}</h3>
+											<p ng-if="data.subgroupName=='EAScore'" class='widget-text'>(in Percentage)</p>
+											<p ng-if="data.subgroupName!='EAScore'" class='widget-text'>(Count of activities)</p>
+												<div class="value-orange">
+											{{data.actualToDate | number}}</div>
+												<p class="duration">Monthly Avg {{data.monthlyAvg | number}}</p>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+							</li>
+						</ul>
+					</div>
+					</div>
+					<div ng-controller="overallUserGroupSummaryController" class ="summary-callout">
+					<div class="contentPanel contentPanel1" ng-if ="isUserGroupViewable">
+						<h2 class="block-title">{{labelConstants.track_summary_metrics_userGroup}}</h2>
+						<a href="javascript:;" class="pull-right filter-option-menu">
+						</a>
+				<div class="options-filter options-filter1  width clearfix">
+					<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+					<div>
+						<div class="popupTitle">
+							<label> Select User Group</label>
+						</div>
+						<div class="popupcnt top" ng-repeat="data in userSettings.menus" >
+							<div class="height">
+								<input type="checkbox" ng-model="data.checked" ng-change="menu.onSelect(data)"/> 
+								<label>{{data.menuName}} </label>
+							</div>
+						</div>
+					</div>
+				</div>
+						 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" data-page="userGroup" class="box-list  clearfix">
+							<li ng-repeat="data in userGroup" ng-hide="data.display==false" ng-if="menuSynced">
+								<div class="box-list-innerwrap">
+									<div class="box-listShadow">
+										<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_USERGROUP[data.groupBy]}}</span>
+										</a>
+										<div class="box-content-top">
+											<a
+												href="#/user-group-engagement?currentlySelected={{data.groupBy}}&&name={{data.groupName}}">
+											<h3>{{data.groupName}}</h3>
+											<p class='widget-text'>(Count of members)</p>
+											<div class="value-green trackingLink">
+											{{data.newSubsActual | number}}</div>
+												<p class="duration">Monthly Avg {{data.monthlyAvg |
+													number}}</p> 
+											</a>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					</div>
+				</div>
+			</div>
+ 	     </div>
+	</div>
+</div>
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2></h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+
+<div ng-hide ng-controller="trackingInitController"></div>

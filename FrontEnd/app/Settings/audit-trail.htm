@@ -1,0 +1,78 @@
+<div class="" ng-controller="auditTrailController" ng-if="isAuditTrailViewable">
+	<div class="ContainerBox decision-option">
+		<article class="title_panel clearfix">
+			<p class="pull-left">
+				<span> Log Details </span>
+			</p>
+		</article>
+		<div class="contentPanel-filter">
+			<form name="auditTrailForm">
+				<div class="checkBoxFields" select-multiple values="moduleList" heading="Modules">
+				</div>
+				<div class="checkBoxFields" select-multiple values="activityList" heading="Activities">
+				</div>
+				<div class="checkBoxFields" select-multiple values="userList" heading="Changed By">
+				</div>
+				<div class="checkBoxFields filtersplit">
+					<h2 class="fieldHeading">Date</h2>
+					<div class="dateAuditWidth">
+						<div class="datevalues-audit">
+							<div class="lblvalue dateAudit">From</div>
+							<input type="text" placeholder="MM/DD/YYYY" ng-model="fromDate" ng-readonly="true"
+								id="from" placeholder="MM/DD/YYYY" datepicker />
+						</div>
+						<div class="datevalues-audit">
+							<div class="lblvalue dateAudit">To</div>
+							<input type="text" placeholder="MM/DD/YYYY" ng-model="toDate" ng-readonly="true" id="to"
+							 placeholder="MM/DD/YYYY" datepicker />
+						</div>
+					</div>
+				</div>
+				<div ng-if="isAuditTrailEditable" class="submitBtnDiv">
+					<input type="submit" class="btn btn-org pull-right" value="Filter"
+						ng-click="auditTrailFilter()">
+				</div>
+			</form>
+		</div>
+
+		<div class="review-panel">
+			<div class="dataTables_wrapper review-panel">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+				<table ng-hide="error || !dataLoaded"
+					class="GDtable dataTable log-details" my-table
+					options="options">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead class="ng-scope">
+						<tr role="row">
+							<th class="">S.No.</th>
+							<th class="">Module</th>
+							<th class="">Activities</th>
+							<th class="">Date</th>
+							<th class="">Changed By</th>
+						</tr>
+					</thead>
+				</table>
+				<a href="#" class="zoomThis"></a>
+			</div>
+		</div>
+	</div>
+	<div ng-hide ng-controller="auditTrailInit"></div>
+</div>
+<!-------------------------->
+<div id="boxes">
+		<div id="tableZoom" class="window">
+			<div class="modalheading">
+				<h2 id="h2"></h2>
+				<a href="#" class="close"></a>
+			</div>
+			<div class="modalcontent"></div>
+		</div>
+</div>
+<div id="mask"></div>

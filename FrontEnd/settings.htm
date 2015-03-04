@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Settings">
+<head>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>D-ASSIST $ CONVERTER</title>
+
+<!-- build:css css/css.min.css -->
+<!-- Plugin Styles -->
+<link href="css/plugins/reset.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/font-awesome.css" rel="stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery-ui.css" rel="stylesheet">
+<link href="css/plugins/jquery.mCustomScrollbar.css" rel="stylesheet">
+<link href="css/plugins/jquery.dataTables.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.treetable.css" rel="stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.treetable.theme.default.css"
+	rel="stylesheet" type="text/css" />
+<link href="css/plugins/dataTables.tableTools.min.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.fileupload.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.fileupload-ui.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.miller.css" rel="Stylesheet"
+	type="text/css" />
+<!-- Custom Styles -->
+<link href="css/Style.css" rel="Stylesheet" type="text/css" />
+<link href="css/New.css" rel="Stylesheet" type="text/css" />
+<link href="css/device.css" rel="Stylesheet" type="text/css" />
+<link href="css/Charts.css" rel="Stylesheet" type="text/css" />
+<!-- endbuild -->
+<!-- build:css css/ngHandsOnTable.min.css -->
+<link rel="stylesheet" media="screen"
+	href="js/ngHandsontable-master/bower_components/handsontable/dist/jquery.handsontable.full.css">
+<!-- endbuild -->
+
+</head>
+<body ng-controller="mainAppContent" ng-cloak>
+	<div class="mainContainer">
+		<div class="header-bg clearfix">
+			<ng-include src="'partials/header.htm'"> </ng-include>
+			<nav id="menu-container" class="has-submenu">
+				<ul class="tab-menu" ng-controller="navLinkController">
+					<li ><a href="home.htm">
+							<div>{{labelConstants.home_tab}}</div>
+					</a></li>
+					<li ng-if="isTrackTabVisible"><a href="tracking.htm">
+							<div>{{labelConstants.track_tab}}</div>
+					</a></li>
+					<li ng-if="isDecisionWorkbenchTabVisible"><a
+						href="decision-workbench.htm">
+							<div>{{labelConstants.decision_workbench_tab}}</div>
+					</a></li>
+					<li ng-if="isSettingsTabVisible"><a href="#" class="active">
+							<div>{{labelConstants.settings_tab}}</div>
+					</a>
+						<ul>
+							<li class="first" ng-if="isDataSyncViewable"><a
+								href="#/dataSync" ng-class="{active: thisPage=='/dataSync'}">
+									Data </a></li>
+							<li ng-if="isChannelsViewable"><a href="#/channels"
+								ng-class="{active: thisPage=='/channels'}"> Channels </a></li>
+							<li ng-if="isModelsViewable"><a href="#/models"
+								ng-class="{active: thisPage=='/models'}"> Models </a></li>
+							<li ng-if="isGoalsViewable"><a href="#/goals"
+								ng-class="{active: thisPage=='/goals'}"> Targets </a></li>
+							<li ng-if="isUsersViewable"><a href="#/users"
+								ng-class="{active: thisPage=='/users'}"> Users </a></li>
+							<li ng-if="isAuditTrailViewable"><a href="#/audit-trail"
+								ng-class="{active: thisPage=='/audit-trail'}"> Audit Trail </a>
+							</li>
+							<li ng-if="isLabelConfigViewable"><a href="#/label-config"
+								ng-class="{active: thisPage=='/label-config'}"> Configuration
+							</a></li>
+						</ul></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="contentarea">
+			<div ng-view></div>
+			<div id="messageContainer" style="display: none;">
+				<div>
+					<h1>
+						<img src=#{image} alt="" width="20"
+							style="height: 100%; vertical-align: middle;"> #{title}
+					</h1>
+					<p>#{text}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footerContainer">
+		<section class="footerInsidePannel">&copy; 2014 Absolutdata.
+			All rights reserved.</section>
+	</footer>
+
+	<!-- build:js js/libraries.min.js -->
+	<!-- Framework related JS -->
+	<script type="text/javascript" src="js/lib/jquery/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/jquery-ui.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-route.js"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-route.min.js.map"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-cache.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.min.js.map"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-treetable.js"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-dragdrop.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- ngHandsOnTable -->
+	<!-- build:js js/ngHandsOnTable.min.js -->
+	<script type="text/javascript"
+		src="js/ngHandsontable-master/bower_components/handsontable/dist/jquery.handsontable.full.js"></script>
+	<script type="text/javascript"
+		src="js/ngHandsontable-master/dist/ngHandsontable.js"></script>
+	<!-- endbuild -->
+
+	<!-- Property files -->
+	<script type="text/javascript" src="js/system.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<!-- build:js js/plugins.min.js -->
+	<!-- jQuery Plugins -->
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.mCustomScrollbar.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.circles.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/Jscript-tooltip.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/moment.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/moment-range-min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/dataTables.tableTools.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.treetable.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-notify-min.js"></script>
+	<script type="text/javascript" src="js/polyfills/polyfiller.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.treetable.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.iframe-transport.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload-process.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/cors/jquery.xdr-transport.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload-angular.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/tai-placeholder.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/lodash.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/restangular.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/miller-column-browser.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/chartingFiles.min.js -->
+	<!-- Charting Files -->
+	<script type="text/javascript" src="js/lib/chart/highcharts-all.js"></script>
+	<script type="text/javascript" src="js/lib/chart/d3.v3.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/App.min.js -->
+	<!-- Angular App -->
+	<script type="text/javascript" src="app/app.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Services.min.js -->
+	<!-- Angular Services -->
+	<script type="text/javascript" src="app/Common/services/custom.js"></script>
+	<script type="text/javascript" src="app/Common/services/utilities.js"></script>
+	<script type="text/javascript" src="app/Common/services/network.js"></script>
+	<script type="text/javascript" src="app/Common/services/storage.js"></script>
+	<script type="text/javascript" src="app/Common/services/menu.js"></script>
+	<script type="text/javascript" src="app/Common/services/constants.js"></script>
+	<script type="text/javascript" src="app/Common/services/permission.js"></script>
+	<script type="text/javascript" src="app/Common/services/charts.js"></script>
+	<script type="text/javascript" src="app/Common/services/data.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Directives.min.js -->
+	<!-- Angular Directives -->
+	<script type="text/javascript"
+		src="app/Common/directives/datepicker-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/slider-ng.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/dataTable-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/elements.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/tooltip-ng.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/chart-label-tooltip-ng.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Filters.min.js -->
+	<!-- Angular Filters -->
+	<script type="text/javascript" src="app/Common/filters/numeric.js"></script>
+	<script type="text/javascript" src="app/Common/filters/string.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/CommonController.min.js -->
+	<!-- Common Controllers -->
+	<script type="text/javascript" src="app/Common/controllers/common.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Settings.min.js -->
+	<!-- Settings Controllers -->
+	<script type="text/javascript"
+		src="app/Settings/controllers/dataSync.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/channels.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/models.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/goals.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/users.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/audit-trail.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/label-config.js"></script>
+	<!-- Settings Services -->
+	<script type="text/javascript" src="app/Settings/services/data.js"></script>
+	<script type="text/javascript" src="app/Settings/services/converter.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

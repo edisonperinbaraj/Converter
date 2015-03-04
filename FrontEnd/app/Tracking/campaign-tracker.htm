@@ -1,0 +1,416 @@
+<div id="contentContainer">
+	<div id="Decision">
+		<div class="contentpannel">
+			<section class="headingPanel">
+				<div class=" pull-left">
+					<h1>Campaign Tracker</h1>
+				</div>
+				<!-- <div class="pull-right" ng-controller="datePickerController">
+					<div class="pull-left fromdatevalues fromlbl">
+						<div class="pull-left">From</div>
+						<div class="pull-left">
+							<input type="text" value="MM/DD/YYYY" ng-model="fromDate"
+								datepicker />
+						</div>
+					</div>
+					<div class="pull-left fromdatevalues fromlbl">
+						<div class="pull-left">To</div>
+						<div class="pull-left">
+							<input type="text" value="MM/DD/YYYY" ng-model="toDate"
+								datepicker />
+						</div>
+					</div>
+				</div> -->
+				<div class="pull-right">
+					<div id="Div1">
+						<ul class="acquisitiontabs">
+							<li class="groupTime today active" rel="tab1">Today</li>
+							<li class="groupTime week" rel="tab2">This Week</li>
+							<li class="groupTime month" rel="tab2">This Month</li>
+							<li class="groupTime quarter" rel="tab2">This Quarter</li>
+							<li class="groupTime year" rel="tab2">This Year</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<div class="AcquisitionPanel"
+				ng-controller="campaignSummaryController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Campaign Summary</span>
+					</p>
+				</article>
+				<div class="filterContainer">
+					<div class="contentPanel">
+						<div class="campaignGridone">
+							<div class="campaignInnerwrap">
+								<h3 class="subTitle">Campaigns at a Glance</h3>
+								<ul class="listpannel clearfix">
+									<li class="width30" ng-repeat="data in campaignSummary.data">
+										<div class={{data.divClass}}>{{data.value}}</div>
+										<p>
+											{{data.suffix}}<br /> {{data.suffix1}}
+										</p>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						<div class="campaignGridTwo">
+							<div class="campaignInnerwrap">
+								<h3 class="subTitle">Conversion Activity by Users Targeted
+								</h3>
+								<div id="pieChart"></div>
+							</div>
+						</div>
+						<div class="campaignGridThree">
+							<div class="campaignInnerwrap last">
+								<section>
+									<h3 class="subTitle">Top Campaigns by New Subs</h3>
+									<div class="pull-left">
+										<div id="Div3">
+											<ul class="acquisitiontabs tabs1">
+												<li class="actual active" rel="tab1">Actual & Forecast
+												</li>
+												<li class="performance" rel="tab2">Performance vs.
+													Target</li>
+											</ul>
+										</div>
+										<div class="tab_container clearboth AcquisitionChart"
+											id="barChart"></div>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="campaignsController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Campaigns</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a><a
+						href="javascript:;" class="pull-right filter-option-menu"> </a>
+					<div class="options-filter width clearfix">
+						<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+						<div class="popupTitle">
+							<label> Select widget</label>
+						</div>
+						<div class="popupcnt top">
+							<div class="height">
+								<input type="checkbox" /> <label> Campaign 1</label>
+							</div>
+							<div class="height">
+								<input type="checkbox" /> <label> Campaign 2</label>
+							</div>
+							<div class="height">
+								<input type="checkbox" /> <label> Campaign 3</label>
+							</div>
+							<div class="height">
+								<input type="checkbox" /> <label> Campaign 4</label>
+							</div>
+							<div>
+								<input type="checkbox" /> <label> Campaign 5</label>
+							</div>
+						</div>
+					</div>
+					<span class="valid30 pull-right"></span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+						<ul data-page="campaignTracker" class="box-list  clearfix">
+							<li ng-repeat="data in campaignTracker.data">
+								<div class={{data.containerClass}}>
+									<div class="box-listShadow">
+										<div class="box-content-top">
+											<h3>{{data.title}}</h3>
+											<div class={{data.divClass}}>{{data.value}}</div>
+											<p class="duration">{{data.duration}}</p>
+										</div>
+										<div class="box-content-bottom">
+											<ul>
+												<li class={{data.className}}>{{data.content}}</li>
+											</ul>
+											<div class="percentage-meter clearfix">
+												<div class="percentage-meter-bar">
+													<div class="percentage-meter-bar-box">
+														<div class="percentage-meter-bar-value"></div>
+													</div>
+													<div>{{data.div1}}</div>
+												</div>
+												<div class="percentage-meter-value">
+													{{data.meterValue1}}</div>
+											</div>
+											<div class="percentage-meter clearfix">
+												<div class="percentage-meter-bar">
+													<div class="percentage-meter-bar-box">
+														<div class="percentage-meter-bar-value"></div>
+													</div>
+													<div>{{data.div2}}</div>
+												</div>
+												<div class="percentage-meter-value">
+													{{data.meterValue2}}</div>
+											</div>
+											<p>{{data.conversionRate}}</p>
+										</div>
+									</div>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="selectedCampaignSummaryController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Campaign1 Summary</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a><span
+						class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+						<ul class="summary-list clearfix">
+							<li class="top widthFirst">
+								<div class="summarylistInnerwrap">
+									<div class="summary-value datepanel">
+										<div class="summary-valuelbl">Start Date</div>
+										<div class="summary-valueDate">
+											{{selectedCampaignSummary.dateValues.startDate}}</div>
+									</div>
+									<div class="summary-value datepanel1">
+										<div class="summary-valuelbl">End Date</div>
+										<div class="summary-valueDate">
+											{{selectedCampaignSummary.dateValues.endDate}}</div>
+									</div>
+								</div>
+							</li>
+							<li class="width"
+								ng-repeat="data in selectedCampaignSummary.data">
+								<div class={{data.div1Class}}>
+									<div class={{data.div2Class}}>{{data.value}}</div>
+									<p>{{data.suffix}}</p>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="selectedCampaignTrendController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Campaign1 Trend</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a><span
+						class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel campaignChartPannel" >
+						<div class="pull-left">
+							<div id="Div2">
+								<ul class="acquisitiontabs">
+									<li class="groupTime Chart active" rel="tab1">Chart</li>
+									<li class="groupTime Cohort" rel="tab2">Cohort</li>
+								</ul>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div id="Div5">
+								<ul class="acquisitiontabs trendChart">
+									<li class="groupTime week active" rel="tab1">This Week</li>
+									<li class="groupTime month" rel="tab2">This Month</li>
+									<li class="groupTime twomonths" rel="tab2">This Quarter</li>
+									<li class="groupTime sixmonths" rel="tab2">6 Months</li>
+									<li class="groupTime year" rel="tab2">1 Year</li>
+									<li class="groupTime threeyears" rel="tab2">3 Years</li>
+								</ul>
+							</div>
+						</div>
+						<div class="AcquisitionChart">
+							<div id="trendlineChart" class="floatingChart"></div>
+							<div id="trendcolumnChart" class="floatingChart smallChart">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="selectedCampaignDeepDiveController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Deep Dive</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a><span
+						class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition tableHeading">
+					<div class="contentPanel">
+						<div class="clearfix" id="Div4">
+							<ul class="acquisitiontabs tabs">
+								<li class="groupTime weekly active" rel="tab1">Email</li>
+								<li class="groupTime monthly" rel="tab2">House Ads</li>
+								<li class="groupTime monthly" rel="tab2">TV</li>
+								<li class="groupTime monthly" rel="tab2">A/B Testing</li>
+								<li class="groupTime monthly" rel="tab2">Radio</li>
+							</ul>
+						</div>
+						<div class="tab_container">
+							<section id="tab1" class="tablecontent contentScroll-disabled">
+								<section class="tablecontent contentScroll-disabled">
+									<table class="GDtable">
+										<thead>
+											<tr>
+												<th rowspan="2">{{deepDive.heading.col1}}</th>
+												<th rowspan="2">{{deepDive.heading.col2}}</th>
+												<th rowspan="2">{{deepDive.heading.col3}}</th>
+												<th class="" colspan="3">{{deepDive.heading.col4}}</th>
+												<th colspan="2">{{deepDive.heading.col5}}</th>
+												<th rowspan="2">{{deepDive.heading.col6}}</th>
+												<th rowspan="2">{{deepDive.heading.col7}}</th>
+												<th rowspan="2">{{deepDive.heading.col8}}</th>
+												<th rowspan="2">{{deepDive.heading.col9}}</th>
+											</tr>
+											<tr>
+												<th class="subheading">{{deepDive.heading.col4_1}}</th>
+												<th class="subheading">{{deepDive.heading.col4_2}}</th>
+												<th class="subheading">{{deepDive.heading.col4_3}}</th>
+												<th class="subheading">{{deepDive.heading.col5_1}}</th>
+												<th class="subheading" colspan="1">
+													{{deepDive.heading.col5_2}}</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="data in deepDive.data">
+												<td>{{data.timePeriod}}</td>
+												<td>{{data.noOfUsers}}</td>
+												<td>{{data.noOfUsersAcquired}}</td>
+												<td>{{data.pro}}</td>
+												<td>{{data.proPlus}}</td>
+												<td>{{data.enterprise}}</td>
+												<td>{{data.freeTrial}}</td>
+												<td>{{data.freemium}}</td>
+												<td>{{data.bounceRate}}</td>
+												<td>{{data.spamRate}}</td>
+												<td>{{data.openRate}}</td>
+												<td>{{data.clickRate}}</td>
+											</tr>
+										<tbody>
+									</table>
+									<a href="#" class="zoomThis"></a>
+									<div class="menu_head btnPadding">
+										<a class="btn btn-org acc_link" rel="historical-block">Show
+											Historical Data</a>
+									</div>
+									<div class="clearboth acc_container" id="historical-block">
+										<div class="CampaignGridOuter">
+											<div class="CampaignGridInner">
+												<div class="clearfix">
+													<div id="closeButton">
+														<a class="pull-right close" href="javascript:;"></a>
+													</div>
+												</div>
+												<div>
+													<div class="gridRow1">
+														<h2 class="title">Best Performing Campaign</h2>
+													</div>
+													<div class="gridRow2">
+														<h2 class="title">Worst Performing Campaign</h2>
+													</div>
+												</div>
+												<div class="clearboth">
+													<div class="gridRow1">
+														<section
+															class="tablecontent gridRowInnerWrap contentScroll-disabled">
+															<div class="gridRowInnerWrap">
+																<table style="overflow: hidden" class="GDtable">
+																	<thead>
+																		<tr>
+																			<th>{{bestCampaign.heading.col1}}</th>
+																			<th>{{bestCampaign.heading.col2}}</th>
+																			<th>{{bestCampaign.heading.col3}}</th>
+																			<th>{{bestCampaign.heading.col4}}</th>
+																			<th>{{bestCampaign.heading.col5}}</th>
+																			<th>{{bestCampaign.heading.col6}}</th>
+																			<th>{{bestCampaign.heading.col7}}</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="data in bestCampaign.data">
+																			<td class="left">{{data.campaign}}</td>
+																			<td class="center">{{data.targetUsers}}</td>
+																			<td class="left">{{data.convertedUsers}}</td>
+																			<td class="center">{{data.pending}}</td>
+																			<td class="left">{{data.conversionRate}}</td>
+																			<td class="center up">
+																				{{data.comparedToLastWeek}}</td>
+																			<td class="center">{{data.forecastForThisWeek}}
+																			</td>
+																		</tr>
+
+																	</tbody>
+																</table>
+																<a href="#" class="zoomThis"></a>
+															</div>
+														</section>
+													</div>
+													<div class="gridRow2">
+														<section
+															class="tablecontent gridRowInnerWrap contentScroll-disabled">
+															<table class="GDtable">
+																<thead>
+																	<tr>
+																		<th>{{worstCampaign.heading.col1}}</th>
+																		<th>{{worstCampaign.heading.col2}}</th>
+																		<th>{{worstCampaign.heading.col3}}</th>
+																		<th>{{worstCampaign.heading.col4}}</th>
+																		<th>{{worstCampaign.heading.col5}}</th>
+																		<th>{{worstCampaign.heading.col6}}</th>
+																		<th>{{worstCampaign.heading.col7}}</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr ng-repeat="data in worstCampaign.data">
+																		<td class="left">{{data.campaign}}</td>
+																		<td class="center">{{data.targetUsers}}</td>
+																		<td class="left">{{data.convertedUsers}}</td>
+																		<td class="center">{{data.pending}}</td>
+																		<td class="left">{{data.conversionRate}}</td>
+																		<td class="center up">
+																			{{data.comparedToLastWeek}}</td>
+																		<td class="center">{{data.forecastForThisWeek}}</td>
+																	</tr>
+
+																</tbody>
+															</table>
+														</section>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2>Table</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+<div ng-hide ng-controller="campaignTrackerInitController"></div>

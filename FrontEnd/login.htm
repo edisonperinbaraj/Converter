@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Home">
+<head>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>D-ASSIST $ CONVERTER</title>
+
+<!-- build:css css/css.min.css -->
+<!-- Plugin Styles -->
+<link href="css/plugins/reset.css" rel="Stylesheet" type="text/css" />
+<link href="css/plugins/font-awesome.css" rel="stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery-ui.css" rel="stylesheet">
+<link href="css/plugins/jquery.mCustomScrollbar.css" rel="stylesheet">
+<link href="css/plugins/jquery.dataTables.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.treetable.css" rel="stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.treetable.theme.default.css"
+	rel="stylesheet" type="text/css" />
+<link href="css/plugins/dataTables.tableTools.min.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.fileupload.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.fileupload-ui.css" rel="Stylesheet"
+	type="text/css" />
+<link href="css/plugins/jquery.miller.css" rel="Stylesheet"
+	type="text/css" />
+<!-- Custom Styles -->
+<link href="css/Style.css" rel="Stylesheet" type="text/css" />
+<link href="css/New.css" rel="Stylesheet" type="text/css" />
+<link href="css/device.css" rel="Stylesheet" type="text/css" />
+<link href="css/Charts.css" rel="Stylesheet" type="text/css" />
+<!-- endbuild -->
+
+
+<!-- build:css css/ngHandsOnTable.min.css -->
+<link rel="stylesheet" media="screen"
+	href="js/ngHandsontable-master/bower_components/handsontable/dist/jquery.handsontable.full.css">
+<!-- endbuild -->
+</head>
+<body ng-controller="mainAppContent" ng-cloak>
+	<div class="mainContainer">
+		<div class="header-bg clearfix">
+			<header class="headerContainer clearfix ng-scope">
+				<div class="Container">
+					<div class="logo">
+						<figure>
+							<img title="D-ASSIST $ CONVERTER" alt="D-ASSIST $ CONVERTER"
+								src="images/logo.png">
+						</figure>
+					</div>
+				</div>
+			</header>
+		</div>
+
+		<div id="contentarea" ng-controller="loginController">
+			<ng-include src="'partials/alertMessage.htm'"></ng-include>
+			<div class="ContainerBox loginbox">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span> Sign In </span>
+					</p>
+				</article>
+				<form name="loginForm" ng-submit="signIn()">
+					<div class="review-panel">
+						<p>
+							<label>UserName</label>
+						</p>
+						<p>
+							<input type="text" class="normal" ng-model="userName" required />
+						</p>
+						<p>
+							<label>Password</label>
+						</p>
+						<p>
+							<input type="password" class="normal" ng-model="password"
+								required />
+						</p>
+						<div class="clearifx">
+							<!-- <a href="" class="forgot">Forgot password</a> -->
+							<input type="submit" class="btn btn-org pull-right signedin"
+								value="Sign In" ng-disabled="loadingLoginResult"
+								ng-class="{spinnerButton: loadingLoginResult==true}">
+							<div class="clear"></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div ng-controller="loginInit"></div>
+	</div>
+	<footer id="footerContainer">
+		<section class="footerInsidePannel">&copy; 2014 Absolutdata.
+			All rights reserved.</section>
+	</footer>
+	<!-- build:js js/libraries.min.js -->
+	<!-- Framework related JS -->
+	<script type="text/javascript" src="js/lib/jquery/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/jquery-ui.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-route.js"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-route.min.js.map"></script>
+	<script type="text/javascript" src="js/lib/angular/angular-cache.js"></script>
+	<script type="text/javascript" src="js/lib/angular/angular.min.js.map"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-treetable.js"></script>
+	<script type="text/javascript"
+		src="js/lib/angular/angular-dragdrop.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- ngHandsOnTable -->
+	<!-- build:asyncjs js/ngHandsOnTable.min.js -->
+	<script type="text/javascript"
+		src="js/ngHandsontable-master/bower_components/handsontable/dist/jquery.handsontable.full.js"></script>
+	<script type="text/javascript"
+		src="js/ngHandsontable-master/dist/ngHandsontable.js"></script>
+	<!-- endbuild -->
+
+	<!-- Property files -->
+	<script type="text/javascript" src="js/system.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<!-- build:asyncjs js/plugins.min.js -->
+	<!-- jQuery Plugins -->
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.mCustomScrollbar.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.circles.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/Jscript-tooltip.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/moment.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/moment-range-min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/dataTables.tableTools.min.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.treetable.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-notify-min.js"></script>
+	<script type="text/javascript" src="js/polyfills/polyfiller.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.treetable.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.iframe-transport.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload-process.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/cors/jquery.xdr-transport.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/jquery.fileupload-angular.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/tai-placeholder.js"></script>
+	<script type="text/javascript" src="js/lib/jquery/plugins/lodash.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/restangular.js"></script>
+	<script type="text/javascript"
+		src="js/lib/jquery/plugins/miller-column-browser.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/chartingFiles.min.js -->
+	<!-- Charting Files -->
+	<script type="text/javascript" src="js/lib/chart/highcharts-all.js"></script>
+	<script type="text/javascript" src="js/lib/chart/d3.v3.min.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/App.min.js -->
+	<!-- Angular App -->
+	<script type="text/javascript" src="app/app.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Services.min.js -->
+	<!-- Angular Services -->
+	<script type="text/javascript" src="app/Common/services/custom.js"></script>
+	<script type="text/javascript" src="app/Common/services/utilities.js"></script>
+	<script type="text/javascript" src="app/Common/services/network.js"></script>
+	<script type="text/javascript" src="app/Common/services/storage.js"></script>
+	<script type="text/javascript" src="app/Common/services/menu.js"></script>
+	<script type="text/javascript" src="app/Common/services/constants.js"></script>
+	<script type="text/javascript" src="app/Common/services/permission.js"></script>
+	<script type="text/javascript" src="app/Common/services/charts.js"></script>
+	<script type="text/javascript" src="app/Common/services/data.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/Directives.min.js -->
+	<!-- Angular Directives -->
+	<script type="text/javascript"
+		src="app/Common/directives/datepicker-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/slider-ng.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/dataTable-ng.js"></script>
+	<script type="text/javascript" src="app/Common/directives/elements.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/tooltip-ng.js"></script>
+	<script type="text/javascript"
+		src="app/Common/directives/chart-label-tooltip-ng.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/Filters.min.js -->
+	<!-- Angular Filters -->
+	<script type="text/javascript" src="app/Common/filters/numeric.js"></script>
+	<script type="text/javascript" src="app/Common/filters/string.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/CommonController.min.js -->
+	<!-- Common Controllers -->
+	<script type="text/javascript" src="app/Common/controllers/common.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:js js/Login.min.js -->
+	<!-- Login -->
+	<script type="text/javascript" src="app/Home/controllers/login.js"></script>
+	<script type="text/javascript" src="app/Home/services/data.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/ChangePassword.min.js -->
+	<!-- Change Password Controllers -->
+	<script type="text/javascript"
+		src="app/Home/controllers/change-password.js"></script>
+	<!-- Change Password Services -->
+	<script type="text/javascript" src="app/Home/services/data.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/DecisionWorkBench.min.js -->
+	<!-- Decision workbench Controllers -->
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/controllers/filter.js"></script>
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/controllers/index.js"></script>
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/controllers/builddo.js"></script>
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/controllers/review-do.js"></script>
+
+	<!-- Decision workbench Services -->
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/services/data.js"></script>
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/services/chartoptions.js"></script>
+	<script type="text/javascript"
+		src="app/DecisionWorkbench/services/converter.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/Settings.min.js -->
+	<!-- Settings Controllers -->
+	<script type="text/javascript"
+		src="app/Settings/controllers/dataSync.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/channels.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/models.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/goals.js"></script>
+	<script type="text/javascript" src="app/Settings/controllers/users.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/audit-trail.js"></script>
+	<script type="text/javascript"
+		src="app/Settings/controllers/label-config.js"></script>
+
+	<!-- Settings Services -->
+	<script type="text/javascript" src="app/Settings/services/data.js"></script>
+	<script type="text/javascript" src="app/Settings/services/converter.js"></script>
+	<!-- endbuild -->
+
+	<!-- build:asyncjs js/Tracking.min.js -->
+	<!-- Tracking Controllers -->
+	<script type="text/javascript"
+		src="app/Tracking/controllers/summary.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/controllers/business-impact.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/controllers/channel-tracker.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/controllers/engagement-activity.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/controllers/user-group-engagement.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/controllers/campaign-tracker.js"></script>
+
+	<!-- Tracking Services -->
+	<script type="text/javascript" src="app/Tracking/services/data.js"></script>
+	<script type="text/javascript"
+		src="app/Tracking/services/chartoptions.js"></script>
+	<script type="text/javascript" src="app/Tracking/services/converter.js"></script>
+	<!-- endbuild -->
+
+</body>
+</html>

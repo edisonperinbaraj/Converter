@@ -1,0 +1,106 @@
+<h1 class="pull-left" ng-if="isSetGoalsEditable">{{labelConstants.dw_index_title}}</h1>
+	<div id="contentContainer">
+	<div id="Decision">
+		<div class="contentpannel">
+			<div class="chartPanel clearfix"
+				ng-controller="setGoalsDataController" ng-if="isSetGoalsEditable">
+				<div class="chartPanelLeft">
+				 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+					<h2>{{labelConstants.dw_index_waterfall_chart_title}}</h2>
+					<a href="#" class="help tooltip-new">
+						<figure>
+							<img src="images/icon-info.png" />
+						</figure> <span><img alt="Tooltip" src="images/tooltip-arrow.png"
+							class="callout">{{Tooltip.TOOLTIP_DECISIONWB_DECISIONOPT_ACQUISITION}}</span>
+					</a>
+					<div ng-hide="error" id="setGoalsChart" class="clearfix"></div>
+				</div>
+				<div class="chartPanelRight">
+					<div class="clearfix right">
+						<h2>Title</h2>
+						<a href="#" class="help tooltip-new">
+							<figure>
+								<img src="images/icon-info.png" />
+							</figure> <span><img alt="Tooltip" src="images/tooltip-arrow.png"
+								class="callout">{{Tooltip.TOOLTIP_DECISIONWB_DECISIONOPT_DATA}}</span>
+						</a>
+						<div class="tab_container">
+							<section >
+								<h2>{{labelConstants.dw_index_showing_data_title}} {{periodText}} {{periodStart | date:'dd MMM '}} - {{periodTo | date:'dd MMM yyyy'}}</h2>
+								 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+								<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+								<ul ng-hide="error || !dataLoaded">
+									<li ng-repeat="item in weeklyListData">{{item.name}}
+										<div>{{item.value}}</div>
+									</li>
+								</ul>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="chartPanel clearfix"
+				ng-controller="engagedActivitiesController" ng-if="isSetGoalsEditable" ng-hide="true">
+				<div class="TopLeastleft">
+					<div class="clearfix TopLeast">
+						<h2>{{labelConstants.dw_index_bubblechart_1_title}}</h2>
+						<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+						<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<section ng-hide="error" class="clearfix" id="engagedChart">
+							<a href="#" class="help tooltip-new">
+								<figure>
+									<img src="images/icon-info.png" />
+								</figure> <span><img alt="Tooltip" src="images/tooltip-arrow.png"
+									class="callout">{{Tooltip.TOOLTIP_DECISIONWB_DECISIONOPT_ENGACTIVITIES}}</span>
+							</a>
+							<div class="clearfix TEchartvalue"></div>
+							<div class="clearfix ChartLegend">
+								<span>*</span>Bigger the Bubble, Higher the Engagement
+							</div>
+						</section>
+					</div>
+				</div>
+				<div class="TopLeastright">
+					<div class="clearfix right TopLeast">
+					<h2>{{labelConstants.dw_index_bubblechart_2_title}}</h2>
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+					<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<section ng-hide="error" class="clearfix" id="engagedChart1">
+							<a href="#" class="help tooltip-new">
+								<figure>
+									<img src="images/icon-info.png" />
+								</figure> <span><img alt="Tooltip" src="images/tooltip-arrow.png"
+									class="callout">{{Tooltip.TOOLTIP_DECISIONWB_DECISIONOPT_USERGRP}}</span>
+							</a>
+							<div class="clearfix TEchartvalue"></div>
+							<div class="clearfix ChartLegend">
+								<span>*</span>Bigger the Bubble, Higher the Engagement
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu_list1"  ng-controller="filterOuterController" ng-if="isSetGoalsEditable">
+				<div class="menu_head">
+					<a class="btn btn-org acc_link" rel="filters">Set Filters</a>
+				</div>
+				<div class="menu_head">
+					<a href="#" ng-click="showBestDecision('/builddo')" 
+					ng-disabled="loadingDOSearchResult" ng-class="{spinnerButton: loadingDOSearchResult==true}"
+					class="btn btn-cancel btn-org">{{labelConstants.dw_index_show_best_do_button_text}}</a>
+				</div>
+				<div class="menu_body acc_container" id="filters">
+					<div class="clearfix">
+						<span class="Fheading">{{labelConstants.dw_index_set_filters_button_text}}</span>
+						<div class="clearfix"></div>
+						<ng-include src="'app/DecisionWorkbench/filter.htm'"></ng-include>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-hide ng-controller="setDoInit"></div>
+	</div>
+</div>
+

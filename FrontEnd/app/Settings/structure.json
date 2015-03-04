@@ -1,0 +1,56 @@
+[
+    {
+        "id": "tracking",
+        "name": "Tracking",
+        "parent": true,
+        "child": [
+            {
+                "id": "track_summary",
+                "name": "Summary",
+                "parent": true
+            },
+            {
+                "id": "track_BI",
+                "name": "Business Impact",
+                "parent": true
+            },
+            {
+                "id": "track_EA",
+                "name": "Engagement Activity",
+                "parent": true
+            },
+            {
+                "id": "track_UG",
+                "name": "User Group",
+                "parent": true
+            }
+        ]
+    },
+    {
+        "id": "decisionWorkbench",
+        "name": "Decision Workbench",
+        "parent": true,
+        "child": [
+            {
+                "id": "dw_index",
+                "name": "Index",
+                "parent": false
+            },
+            {
+                "id": "dw_builddo",
+                "name": "Build DO",
+                "parent": false
+            },
+            {
+                "id": "dw_reviewdo",
+                "name": "Review DO",
+                "parent": false
+            },
+            {
+                "id": "dw_filters",
+                "name": "Filters",
+                "parent": false
+            }
+        ]
+    }
+]

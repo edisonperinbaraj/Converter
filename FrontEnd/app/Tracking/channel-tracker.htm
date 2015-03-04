@@ -1,0 +1,222 @@
+<div id="contentContainer">
+	<div id="Decision">
+		<div class="contentpannel">
+			<section class="headingPanel">
+				<div class="title pull-left">
+					<h1>Channel Tracker</h1>
+				</div>
+				<div class="pull-right">
+					<div id="thisweekPanel">
+						<ul class="acquisitiontabs">
+							<li class="groupTime time today active" rel="tab1">Today</li>
+							<li class="groupTime time week " rel="tab2">This Week</li>
+							<li class="groupTime time monthly" rel="tab2">This Month</li>
+							<li class="groupTime time monthly" rel="tab2">This Quarter</li>
+							<li class="groupTime time monthly" rel="tab2">This Year</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<div class="AcquisitionPanel"
+				ng-controller="channelSummaryController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Channels Summary</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose expandclose"></a><span
+						class="valid30 pull-right"> </span>
+				</article>
+				<div class="filterContainer">
+					<div class="contentPanel">
+						<div class="pull-left">
+							<div id="Div3">
+								<ul class="acquisitiontabs pieChart tabs ">
+									<li class="groupTime type campaign active" rel="tab1">BY
+										Campaign Tracker</li>
+									<li class="groupTime type user" rel="tab2">By User
+										Targeted</li>
+									<li class="groupTime type subs" rel="tab2">By New Subs</li>
+								</ul>
+							</div>
+						</div>
+						<div class="pieChartTitle">
+							<h3 class="subTitle">Subscribers Acquisition share by
+								channel</h3>
+						</div>
+						<div id="pieChart" class="clearboth AcquisitionChart"></div>
+						<div class="clearboth">
+							<ul class="box-list  clearfix">
+								<li ng-repeat="data in channelSummary.data">
+									<div class={{data.containerClass}}>
+										<div class="box-listShadow">
+											<div class="box-content-top">
+												<h3>{{data.title}}</h3>
+												<div class={{data.divClass}}>{{data.value}}</div>
+												<p class="duration">{{data.suffix}}</p>
+												<p class="duration">{{data.duration}}</p>
+												<p class="value1">
+													<span>{{data.value1}}</span>{{data.suffix}}
+												</p>
+												<p class="duration1">{{data.duration1}}</p>
+											</div>
+											<div class="box-content-bottom">
+												<ul>
+													<li class={{data.className}}>{{data.content1}}</li>
+													<li class={{data.className}}>{{data.content2}}</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="selectedWidgetSummaryController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>House Ads Summary</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+						<ul class="summary-list clearfix">
+							<li ng-repeat="data in ChannelTrackerWidgetSummary.data">
+								<div class={{data.containerClass}}>
+									<div class={{data.divClass}}>{{data.value}}</div>
+									<p>{{data.suffix}}</p>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="selectedWidgetTrendController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>House Ads Trend</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a><a
+						href="javascript:;" class="pull-right filter-option-menu"> </a>
+					<div class="options-filter options-filterBottom1 width clearfix">
+						<div>
+							<div class="popupTitle">
+								<label> Select widget</label>
+							</div>
+							<div class="popupcnt top">
+								<div class="height">
+									<input type="checkbox" /> <label> Email</label>
+								</div>
+								<div class="height">
+									<input type="checkbox" /> <label> House Ads</label>
+								</div>
+								<div class="height">
+									<input type="checkbox" /> <label> TV</label>
+								</div>
+								<div class="height">
+									<input type="checkbox" /> <label> A/B Testing</label>
+								</div>
+								<div>
+									<input type="checkbox" /> <label> Radio</label>
+								</div>
+							</div>
+						</div>
+						<img src="images/popmenu-arrow-down.png" class="popmenu-bottom1" />
+					</div>
+					<span class="valid30 pull-right"></span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+						<div class="pull-right">
+							<div id="Div2">
+								<ul class="acquisitiontabs trendChart">
+									<li class="groupTime trendTime previousDays active" rel="tab1">Last
+										7 Days</li>
+									<li class="groupTime trendTime week" rel="tab2">Weekly</li>
+									<li class="groupTime trendTime monthly" rel="tab2">Monthly</li>
+									<li class="groupTime trendTime monthly" rel="tab2">Yearly</li>
+								</ul>
+							</div>
+						</div>
+						<div class="DivAcquisitionChart" id="trendChart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel"
+				ng-controller="selectedWidgetDeepDiveController">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>Deep Dive</span>
+					</p>
+					<a href="javascript:;" class="pull-right xclose"></a> </span>
+				</article>
+				<div class="Acquisition tableHeading">
+					<div class="deepdivechannel">
+						<div class="contentPanel">
+							<div class="clearfix" id="Div4">
+								<ul class="acquisitiontabs tabs">
+									<li class="groupTime weekly active" rel="tab1">By
+										Campaigns</li>
+									<li class="groupTime monthly" rel="tab2">By Users Targeted</li>
+									<li class="groupTime monthly" rel="tab2">By New Subs</li>
+								</ul>
+							</div>
+							<div class="tab_container">
+								<section id="tab1" class="tablecontent contentScroll-disable">
+									<table class="GDtable">
+										<thead>
+											<tr>
+												<th>{{deepDive.heading.col1}}</th>
+												<th>{{deepDive.heading.col1}}</th>
+												<th>{{deepDive.heading.col1}}</th>
+												<th>{{deepDive.heading.col2}}</th>
+												<th>{{deepDive.heading.col3}}</th>
+												<th>{{deepDive.heading.col4}}</th>
+												<th>{{deepDive.heading.col5}}</th>
+												<th>{{deepDive.heading.col6}}</th>
+
+											</tr>
+
+										</thead>
+
+										<tbody>
+											<tr ng-repeat="data in deepDive.data">
+												<td>{{data.userGroups}}</td>
+												<td class="right">{{data.sizeOfUserGroup}}</td>
+												<td class="right">{{data.CPA}}</td>
+												<td class="right">{{data.newSubs}}</td>
+												<td class="right">{{data.clickRate}}</td>
+												<td class="right">{{data.bounceRate}}</td>
+												<td class="right">{{data.spamRate}}</td>
+												<td class="right">{{data.averageTimeSpent}}</td>
+											</tr>
+										<tbody>
+									</table>
+									<a href="#" class="zoomThis"></a>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2 id="h2">Table</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+<div ng-hide ng-controller="channelTrackerInitController"></div>

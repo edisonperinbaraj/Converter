@@ -1,0 +1,157 @@
+
+<div class="">
+	<div class="ContainerBox decision-option" ng-if="isChannelsViewable">
+		<article class="title_panel clearfix">
+			<p class="pull-left heading">
+				<span> Channel Information </span>
+			</p>
+		</article>
+
+		<div class="clearfix" ng-controller="channelsInfoController" >
+			<a ng-if="isChannelsEditable" class="addDialog btn btn-org pull-right zmargin" name="modal" href="#" data-modal="#addChannelsDialog">Add</a>
+			<div class="dataTables_wrapper review-panel clearfix">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+				<div ng-if="channelSubmitError" class="alert alert-danger" role="alert">Alert</div>
+    			<div ng-if="channelSubmitSuccess" class="alert alert-success" role="alert">Alert</div>
+				<table ng-hide="error || !dataLoaded"
+					class="GDtable dataTable channel-information" my-table options="options" table-data="channelsInfo">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead class="">
+						<tr role="row">
+							<th class="">S.No.</th>
+							<th class="">Channel Type</th>
+							<th class="">Estimated Cost</th>
+							<th class="">Estimated Time(weeks)</th>
+							<th class="">Last Modified Date</th>
+							<th class="">Last Modified By</th>
+							<th class="">Actions</th>
+							<th class="">Default</th>
+						</tr>
+					</thead>
+				</table>
+				<a href="#" class="zoomThis"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="boxes" ng-controller="channelsModalController" ng-if="isChannelsViewable">
+<form name = "addChannelForm">
+	<div id="addChannelsDialog" class="window small-window"
+		style="min-width: 500px;">
+		<div class="modalheading">
+			<h2>Add Channels</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent">
+			<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+		<div >
+			<div class="formgroup">
+				<label class="rmargin">Channel Type</label> <input type="text" ng-model="addChannelType" required/>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Estimated Cost</label> <input type="number" ng-model="addEstimateCost" required/>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Estimated Time</label> <input type="number" ng-model="addEstimateTime" required/>
+				<label>(in weeks)</label>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Last Modified by</label>
+				<select  ng-model="addLastModifiedBy" ng-options="users as users for users in users" required></select>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Last Modified Date</label> <input type="text" datepicker ng-readOnly="true" ng-model="addLastModifiedDate" required/>
+			</div>
+			 <ng-include src="'partials/alertMessage.htm'"></ng-include>
+			<div class="formgroup">
+				<label class="rmargin">&nbsp;</label>
+				 <input type="submit" value="Save" ng-disabled="savingChannels" ng-class="{spinnerButton: savingChannels==true}" class="btn btn-org rmargin" href="#" ng-click="addChannel()"> 
+				 <input type="button" value="Cancel"class="btn btn-org cancel" href="#">
+			</div>
+
+		</div>
+		</div>
+	</div>
+	</form>
+	<form name= "channelEditForm">
+	<div id="channelEditDialog" class="window small-window"
+		style="min-width: 500px;">
+		<div class="modalheading">
+			<h2>Edit Channels</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div  class="modalcontent">
+			<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+		<div>
+			<div class="formgroup">
+				<label class="rmargin">Channel Type</label> <input ng-model="channelType" type="text" required/>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Estimated Cost</label> <input type="number" ng-model="estimateCost" required/>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Estimated Time</label> <input type="number" ng-model="estimateTime" required/>
+				<label>(in weeks)</label>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Last Modified by</label> <!-- <input type="text" ng-model="lastModifiedBy"/> -->
+				<select required ng-model="lastModifiedBy" ng-options="users as users for users in users" ></select>
+			</div>
+			<div class="formgroup">
+				<label class="rmargin">Last Modified Date</label> <input type="text" datepicker ng-readOnly="true" ng-model="lastModifiedDate" required/>
+			</div>
+			 <ng-include src="'partials/alertMessage.htm'"></ng-include>
+			<div class="formgroup">
+				<label class="rmargin">&nbsp;</label> 
+				<input type="submit" value="Save" ng-disabled="savingChannels" ng-class="{spinnerButton: savingChannels==true}" class="btn btn-org rmargin" ng-click="channelEditSave()" href="#"/> 
+				<input type="button" value="Cancel"class="btn btn-org cancel" href="#"/>
+			</div>
+
+		</div>
+		</div>
+	</div>
+	</form>
+	<div id="deleteChannelDialog" class="window delete-window">
+		<div class="modalheading">
+			<h2>Delete Channels</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent">
+			<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+			<div >
+				<h4 class="center">Are you sure to delete?</h4>
+	
+				<div class="tmargin center">
+				 <ng-include src="'partials/alertMessage.htm'"></ng-include>
+					<input type="submit" value= "Ok" class="btn btn-org " href="#" ng-disabled="savingChannels" ng-class="{spinnerButton: savingChannels==true}"  ng-click="deleteChannel()"> <a
+						class="btn btn-org cancel" href="#">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="boxes">
+		<div id="tableZoom" class="window">
+			<div class="modalheading">
+				<h2 id="h2"></h2>
+				<a href="#" class="close"></a>
+			</div>
+			<div class="modalcontent"></div>
+		</div>
+	</div>
+	<div id="mask"></div>
+	<div ng-hide ng-controller="channelsInit"></div>
+</div>

@@ -1,0 +1,281 @@
+<div id="contentContainer">
+	<div id="Decision">
+		<div class="contentpannel">
+			<div class="engagementScorePanel clearfix"
+				ng-controller="engagementScoreController" ng-if="isEAScoreViewable">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                <ng-include ng-show="error" src="'partials/error.htm'" class=" forChart"></ng-include>
+				<div ng-hide="error || !dataLoaded" class="engagementScorePanelLeft">
+					<div class="engagement-score">
+						<br /> <br />
+						<div id="engagementScore" class="engagement-score-value">
+							{{engagementScore.data.value}}</div>
+						<br />
+						<p>{{labelConstants.track_EA_engagement_score}}</p>
+					</div>
+				</div>
+				<div ng-hide="error || !dataLoaded" class="engagementScorePanelRight">
+					<div class="AcquisitionPanel">
+						<div class="filterContainer">
+							<div class="contentPanel">
+								<div class="enggChartTitle">
+									<h3 class="chartTitleEA">{{labelConstants.track_EA_engagement_score_trend}}</h3>
+								</div>
+								<div id="scoreChart" class="AcquisitionChart"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel AcquisitionPanel1 contentPanel1" ng-controller="engagementActivityMatricesController" ng-if="isEngagementMetricsViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_EA_key_engagement_activity_matrices}}</span>
+					</p>					
+					<span class="valid30 pull-right"></span>
+				</article>
+				<a href="javascript:;" class="pull-right filter-option-menu filter-option-menu1"> </a>
+					<div style="display: none" class="options-filter options-filter1 clearfix">
+						<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+						<div class="options-filter-left">
+							<div class="popupTitle">
+									<input type="radio" name="Module" ng-model="userSettings.selectedType" value="module" ng-change="menu.menuSync()"/> <label>
+									Module</label>
+							</div>
+								<div class="popupcnt">
+									<input type="checkbox"  checked="true" disabled="true"/><label>EA Score </label>
+								</div>
+							<div class="popupcnt" ng-repeat="data in userSettings.menus" ng-if='data.menuType=="module"'>
+								<div>
+										<input type="checkbox" ng-model="data.checked" ng-disabled="userSettings.selectedType != 'module'" ng-change="menu.onSelect(data)"/><label>{{data.menuName}} </label>
+								</div>
+							</div>
+						</div>
+						<div class="options-filter-right">
+							<div class="popupTitle">
+									<input type="radio" name="Activity"  value="activity" ng-model="userSettings.selectedType" ng-change="menu.menuSync()"/> <label>
+									Activity</label>
+							</div>
+								<div class="popupcnt">
+									<input type="checkbox"  checked="true" disabled="true"/><label>EA Score </label>
+								</div>
+							<div class="popupcnt" ng-repeat="data in userSettings.menus" ng-if='data.menuType=="activity"'>
+								<div>
+										<input type="checkbox"  ng-model="data.checked"  ng-disabled="userSettings.selectedType != 'activity'" ng-change="menu.onSelect(data)"/><label>{{data.menuName}} </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="Acquisition">
+					<div class="contentPanel">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" data-page="engagementActivity" class="box-list clearfix">
+						
+							<li ng-repeat="data in engagementActivity" ng-hide="data.display==false" ng-if="menuSynced" ng-click="menu.widgetSelected(data)">
+						
+								<div class="box-list-innerwrap">
+									<div class="box-listShadow" ng-class="{'box-listShadow': true, selected: data.subGroupBy==select}">
+									<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_ENGAGEMENT[data.subgroupName]}}</span>
+										</a>
+										<div class="box-content-top">
+											<!-- <a href="#/engagement-activity?currentlySelected={{data.subGroupBy}}&&name={{data.subgroupName}}"> -->
+											<h3>{{data.subgroupName}}</h3>
+											<p ng-if="data.subgroupName=='EA Score'" class='widget-text'>(in Percentage)</p>
+											<p ng-if="data.subgroupName!='EA Score'" class='widget-text'>(Count of activities)</p>
+												<div class="value-orange">
+											{{data.actualToDate | number}}</div>
+												<p class="duration">Monthly Avg {{data.monthlyAvg | number}}</p>
+											<!-- </a> -->
+										</div>
+									</div>
+								</div>
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="engagementActivitySummaryController" ng-if="isEngagementMetricsViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{heading}} {{labelConstants.track_EA_summary}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                    <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+					<ul ng-hide="error || !dataLoaded" class="summary-list clearfix">
+                                        <li ng-show="engagementActivitySummary.versusLast.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{engagementActivitySummary.versusLast.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                	<!-- -212 -->
+                                                    {{engagementActivitySummary.versusLast.value| number}}
+                                                </div>
+                                                <p>
+                                                    {{toLastText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="engagementActivitySummary.versusSameLastYear.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{engagementActivitySummary.versusSameLastYear.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                    {{engagementActivitySummary.versusSameLastYear.value| number}}
+                                                </div>
+                                                <p>
+                                                    {{toLastLYText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="engagementActivitySummary.visits.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                   <!--  23,765 -->
+                                                   {{engagementActivitySummary.visits.value| number}}
+                                                </div>
+                                                <p >
+                                                    {{heading}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="engagementActivitySummary.diffFromTarget.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{businessImpactSummary.diffFromTarget.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                   <!--  3,235 -->
+                                                   {{engagementActivitySummary.diffFromTarget.value| number}}
+                                                </div>
+                                                <p>
+                                                    Difference from Target
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="engagementActivitySummary.forecast.value!=null">
+                                            <div class="summarylistInnerwrap last">
+                                                <div class="{{businessImpactSummary.forecast.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                    <!-- 27,000 -->
+                                                     {{engagementActivitySummary.forecast.value| number}}
+                                                </div>
+                                                <p>
+                                                    {{forecastText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+						
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="engagementActivityTrendController" ng-if="isEngagementMetricsViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{heading}} {{labelConstants.track_EA_trend}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'" class=" forChart"></ng-include>
+						<div ng-hide="true" class="pull-left">
+							<div id="Div1">
+								<ul class="acquisitiontabs">
+									<li class="groupTime weekly active" rel="tab1">Chart</li>
+									<li class="groupTime monthly" rel="tab2">Cohort</li>
+								</ul>
+							</div>
+						</div>
+						<div  ng-hide="error || !dataLoaded" id="trendChart" class="clearboth DivAcquisitionChart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="engagementActivityDeepDiveController" ng-if="isEADeepDiveViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{heading}} {{labelConstants.track_EA_deep_dive}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel clearfix">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<div class="clearfix">
+							<div class="pull-left subtitle">
+								<h3 class="subTitle">{{labelConstants.track_EA_deep_dive_conversionWeightage}}</h3>
+							</div>
+						</div>
+						<div ng-hide="error || !dataLoaded" class="clearfix">
+                            <div id="tooltip" class="heatMapTooltip"><br>Send</div>
+							<div class="heatMapwidth">
+								<div class="heatMapBgOuter">
+									<div class="heatMapBg1">
+										<span class="pull-left heatmaptitle heatMapTitle"></span> 
+										<span class="pull-right heatmaptitle heatMapTitleVisits"></span>
+										<div class="heatMap1"></div>
+									</div>
+								</div>
+							</div><!-- 
+							<div class="heatMapwidth">
+								<div class="heatMapBgOuter">
+									<div class="heatMapBg">
+										<span class="pull-left heatmaptitle heatMapTitle"></span> 
+										<span class="pull-right heatmaptitle heatMapTitleVisits"></span>
+										<div class="heatMap2"></div>
+									</div>
+								</div>
+							</div> -->
+						</div>
+						<br/>
+							<div class="heading subtitle" ng-if="isEAEngagementTableViewable">
+								<h3 class="subTitle">{{labelConstants.track_EA_deep_dive_moduleEngagement}}</h3>
+							</div>
+							<section
+							class="tablecontent contentScroll-disabled" ng-controller="engagementModuleController" ng-if="isEAEngagementTableViewable">
+							<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                            <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+							<table  ng-hide="error || !dataLoaded" class="GDtable" my-table options="options">
+								<colgroup>
+									<col>
+									<col>
+									<col>
+									<col>
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>{{labelConstants.track_EA_deep_dive_moduleEngagement_user_group_column}}</th>
+										<th>{{labelConstants.track_EA_deep_dive_moduleEngagement_no_of_users}}</th>
+										<th>{{labelConstants.track_EA_deep_dive_moduleEngagement_actual}} </th>
+										<th>Vs. Last {{timePeriodText}}</th>
+										<th>Vs. Same {{sameLastYearText}}</th>
+									</tr>
+								</thead>
+							</table>
+							<a href="#" class="zoomThis"></a>
+						</section>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2 id="h2">Table</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+<div ng-hide ng-controller="engagementActivityInitController"></div>

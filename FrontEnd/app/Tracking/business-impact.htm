@@ -1,0 +1,233 @@
+<div id="contentContainer">
+	<div id="Decision">
+	<div ng-controller="businessImpactMatricesController" ng-if ="isBusinessImpactViewable">
+			<div class="AcquisitionPanel contentPanel1">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_BI_key_business_metrics}}</span>
+					</p>
+					
+					<span class="valid30 pull-right"></span>
+				</article>
+				<a href="javascript:;" class="pull-right filter-option-menu filter-option-menu1"> </a>
+					<div class="options-filter options-filter1  width clearfix">
+						<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+						<div>
+							<div class="popupTitle">
+								<label> Select widget</label>
+							</div>
+							<div class="popupcnt top" ng-repeat="data in userSettings.menus">
+									<div class="height">
+										<input type="checkbox" ng-model="data.checked" ng-change="menu.onSelect(data)"> 
+										<label>{{data.menuName}}</label>
+									</div>
+									
+								</div>
+						</div>
+					</div>
+				<div class="filterContainer">
+					<div class="contentPanel">
+                        <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" class="box-list clearfix" >
+							<li ng-repeat="data in businessImpact"  ng-hide="data.display==false" ng-if="menuSynced" ng-click="menu.widgetSelected(data)">
+								<div class="box-list-innerwrap ">
+									<div ng-class="{'box-listShadow': true, selected: data.subGroupBy==select}">
+										<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_BUSINESSIMPACT[data.subGroupBy]}}</span>
+										</a>
+										<div class="box-content-top">
+											<h3>{{data.subgroupName}}</h3>
+											<div
+												class="value-orange trackingLink">
+												{{data.actualToDate | number}}</div>
+											<!-- <p class="duration">Week To Date Actual</p> -->
+											<p class="value1">
+												<span>{{data.forecast.value| number}}</span>
+											</p>
+											<p class="duration1">{{forecastText}}</p>
+										</div>
+										<div class="box-content-bottom">
+											<ul>
+												<li class="{{data.versusLast.trend=='-ve'?'down':'up'}}">{{data.versusLast.value| number}}
+													{{vsLastText}}</li>
+												<li class="{{data.versusSameLastYear.trend=='-ve'?'down':'up'}}">{{data.versusSameLastYear.value| number}}
+													{{vsLastYearText}}</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div ng-controller="businessImpactSummaryController" ng-if ="isBusinessImpactViewable">
+			<div class="AcquisitionPanel">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span> {{heading}} {{labelConstants.track_BI_key_summary}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel">
+					 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						 <ul ng-hide="error || !dataLoaded" class="summary-list clearfix">
+                                        <li ng-show="businessImpactSummary.versusLast.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{businessImpactSummary.versusLast.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                    {{businessImpactSummary.versusLast.value | number}}
+                                                </div>
+                                                <p>
+                                                    {{toLastText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="businessImpactSummary.versusSameLastYear.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{businessImpactSummary.versusSameLastYear.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                    {{businessImpactSummary.versusSameLastYear.value| number}}
+                                                </div>
+                                                <p>
+                                                    {{toLastLYText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="businessImpactSummary.actualToDate!=null">
+                                            <div class="summarylistInnerwrap ">
+                                                <div class="summary-value">
+                                                   {{businessImpactSummary.actualToDate| number}}
+                                                </div>
+                                                <p>
+                                                     {{businessImpactSummary.subgroupName}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="businessImpactSummary.diffFromTarget.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{businessImpactSummary.diffFromTarget.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                   {{businessImpactSummary.diffFromTarget.value| number}}
+                                                </div>
+                                                <p>
+                                                    Difference from Target
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="businessImpactSummary.forecast.value!=null">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="{{businessImpactSummary.forecast.trend=='-ve'?'summary-value summary-value-down':'summary-value summary-value-up'}}">
+                                                     {{businessImpactSummary.forecast.value| number}}
+                                                </div>
+                                                <p>
+                                                    {{forecastText}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div ng-controller = "businessImpactTrendController" ng-if ="isBITrendVisible">
+			<div class="AcquisitionPanel">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{heading}} {{labelConstants.track_BI_key_trend}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel tableHeading">
+						<!-- <div class="chartTitle">
+							<h3 class="chartTitleText">Key Business Matrices</h3>
+						</div> -->
+						 <div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+                        <ng-include ng-show="error" src="'partials/error.htm'" class="forChart"></ng-include>
+						<div ng-hide="error || !dataLoaded" id="subsTrendChart" class="DivAcquisitionChart"></div>
+						<div ng-hide="error || !dataLoaded" id="subsTrendCohort" class="hidden gridRow3 ">
+							<section class="gridRowInnerWrap ">
+								<table class="GDtable">
+								
+									<thead>
+										<tr>
+											<th>period</th>
+											<th>Day 1</th>
+											<th>Day 2</th>
+											<th>Day 3</th>
+											<th>Day 4</th>
+											<th>Day 5</th>
+											<th>Day 6</th>
+											<th>Day 7</th>
+											<th>Day 8</th>
+											<th>Day 9</th>
+											<th>Day 10</th>
+											<th>Day 11</th>
+											<th>Day 12</th>
+											<th>Day 13</th>
+											<th>Day 14</th>
+											<th>Day 15</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- <tr ng-repeat="data in businessImpactCohort.data"> -->
+										<!-- For network call -->
+										<tr ng-repeat="data in businessImpactCohort">
+											<td ng-repeat="data in data">
+												{{data.value}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" class="zoomThis"></a>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		<div ng-controller="businessImpactDeepDiveController"
+			ng-if="isBIDeepDiveViewable">
+			<div class="AcquisitionPanel">
+				<article class="title_panel clearfix">
+					<p class="pull-left heading">
+						<span>{{heading}} {{labelConstants.track_BI_deep_dive}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="tab_container Acquisition tableHeading">
+					<div class="contentPanel">
+						<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+						<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ng-include ng-show="hasNoDeepDive" src="'partials/notification.htm'"></ng-include>
+						<section ng-hide="error || !dataLoaded || hasNoDeepDive"
+							class="tablecontent contentScroll-disabled">
+							<div id="deepDive1">
+								<div my-delayed-table trigger="trigger" options="options"></div>
+								<a href="#" class="zoomThis"></a>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2 id="h2">table</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+<div ng-hide ng-controller="businessImpactInitController"></div>

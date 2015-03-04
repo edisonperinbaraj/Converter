@@ -1,0 +1,282 @@
+<div id="contentContainer">
+	<div id="Decision">
+		<div class="contentpannel1">
+			<div class="AcquisitionPanel" ng-controller="overallUserGroupSummaryController" ng-if="isUserGroupViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_UG_usergroup_metrics}}</span>
+					</p>
+					<span class="valid30 pull-right"></span>
+				</article>
+				<a href="javascript:;" class="pull-right filter-option-menu filter-option-menu1"> </a>
+				<div class="options-filter options-filter1  width clearfix">
+					<img src="images/popmenu-arrow.png" class="popmenu-arrow" />
+					<div>
+						<div class="popupTitle">
+							<label> Select User Group</label>
+						</div>
+						<div class="popupcnt top" ng-repeat="data in userSettings.menus" >
+							<div class="height">
+								<input type="checkbox" ng-model="data.checked" ng-change="menu.onSelect(data)"/> 
+								<label>{{data.menuName}} </label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="filterContainer">
+					<div class="contentPanel">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+					<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" data-page="userGroup" class="box-list  clearfix">
+							<li ng-repeat="data in userGroup" ng-hide="data.display==false" ng-if="menuSynced" ng-click="menu.selected(data)">
+								<div class="box-list-innerwrap">
+									<div ng-class="{'box-listShadow': true, selected: data.groupBy==select}">
+										<a href="#" class="help tooltip-new">
+											<figure>
+												<img src="images/icon-info.png" />
+											</figure>
+											<span><img alt="Tooltip" src="images/tooltip-arrow.png" class="callout">{{Tooltip.TOOLTIP_TRAC_SUMMARY_USERGROUP[data.groupBy]}}</span>
+										</a>
+										<div class="box-content-top">
+											<h3>{{data.groupName}}</h3>
+											<p class='widget-text'>(Count of members)</p>
+											<div class="value-green trackingLink">
+											{{data.newSubsActual | number}}</div>
+											<p class="duration">Monthly Avg {{data.monthlyAvg | number}}</p>
+										</div>
+									</div>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="userGroupSummaryController" ng-if="isUGSummaryViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{heading}} {{labelConstants.track_UG_summary}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="filterContainer">
+					<div class="contentPanel">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+					<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+						<ul ng-hide="error || !dataLoaded" class="summary-list clearfix">
+										<li ng-show="UserGroupSummary.eaScore!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                    {{UserGroupSummary.eaScore | number}}
+                                                </div>
+                                                <p>
+                                                    Engagement Score
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="UserGroupSummary.activeUsers!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                    {{UserGroupSummary.activeUsers | number}}
+                                                </div>
+                                                <p>
+                                                    Active Users
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="UserGroupSummary.newSubsActual!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                      {{UserGroupSummary.newSubsActual | number}}
+                                                </div>
+                                                <p>
+                                                    Subscriptions
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="UserGroupSummary.conversionRate!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                      {{UserGroupSummary.conversionRate | number}}%
+                                                </div>
+                                                <p>
+                                                    Conversion Rate
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="UserGroupSummary.newUsersAdded!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                      {{UserGroupSummary.newUsersAdded | number}}
+                                                </div>
+                                                <p>
+                                                    New Users Added
+                                                </p>
+                                            </div>
+                                        </li>
+                                       <!--  <li ng-show="UserGroupSummary.leastEngagement!=null" class="width">
+                                            <div class="summarylistInnerwrap">
+                                                <div class="summary-value">
+                                                     {{UserGroupSummary.leastEngagement | number}}
+                                                </div>
+                                                <p>
+                                                    Least Engaged
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li ng-show="UserGroupSummary.arpu!=null" class="width">
+                                            <div class="summarylistInnerwrap last">
+                                                <div class="summary-value">
+                                                     $ {{UserGroupSummary.arpu | number}}
+                                                </div>
+                                                <p>
+                                                    ARPU
+                                                </p>
+                                            </div>
+                                        </li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="userGroupTrendController" ng-if="isUGTrendViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_UG_trend}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition">
+					<div class="contentPanel contentPanel1">
+					<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+					<ng-include ng-show="error" src="'partials/error.htm'" class=" forChart"></ng-include>
+						<div ng-hide="true" class="pull-left">
+							<div id="Div1">
+								<ul class="acquisitiontabs newSubsTrendTab">
+									<li class="tabItem Chart active" rel="tab1">Chart</li>
+									<li class="tabItem Cohort" rel="tab2">Cohort</li>
+								</ul>
+							</div>
+						</div>
+						<div ng-hide="error || !dataLoaded" class="DivAcquisitionChart" id="trendChart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="AcquisitionPanel" ng-controller="userGroupDeepDiveController" ng-if="isUGDeepDiveViewable">
+				<article class="title_panel clearfix">
+					<p class="pull-left">
+						<span>{{labelConstants.track_UG_deep_dive}}</span>
+					</p>
+					<span class="valid30 pull-right"> </span>
+				</article>
+				<div class="Acquisition contentPanel tableHeading">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				    <ng-include ng-show="error" src="'partials/error.htm'"  class=" forChart"></ng-include>
+					<div ng-hide="error || !dataLoaded" class="">
+						<div class="clearfix" id="Div4">
+							<ul class="acquisitiontabs tabs">
+								<li ng-class="{active:currentView=='campaign'}" ng-click="changeCurrentView('campaign')">Campaign View</li>
+								<li ng-class="{active:currentView=='engagement'}" ng-click="changeCurrentView('engagement')" >Engagement View</li>
+							</ul>
+						</div>
+						<div class="tab_container">
+						<section ng-if="currentView=='campaign'" id="tab1"
+								class="tablecontent tab_content contentScroll-disabled">
+								<table ng-hide="error || !dataLoaded"  class="GDtable" my-table options="campaignTableoptions">
+									<colgroup>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+									</colgroup>
+									<thead>
+										<tr>
+											<th rowspan="2">{{labelConstants.track_UG_deep_dive_campaign_view_user_group_column}}</th>
+											<th rowspan="2">{{labelConstants.track_UG_deep_dive_campaign_view_no_of_users_column}}</th>
+											<th rowspan="2">{{labelConstants.track_UG_deep_dive_campaign_view_base_expected_conversion_column}}</th>
+											<th colspan="5">{{labelConstants.track_UG_deep_dive_campaign_view_campaign_impact_column}}</th>
+										</tr>
+										<tr>
+											<th class="subheading">{{labelConstants.track_UG_deep_dive_campaign_view_new_users_achieved}}</th>
+											<th class="subheading">{{labelConstants.track_UG_deep_dive_campaign_view_compared_to_column}}</th>
+											<th class="subheading">{{labelConstants.track_UG_deep_dive_campaign_view_target_column}}</th>
+											<th class="subheading">{{labelConstants.track_UG_deep_dive_campaign_view_conversion_uplift_column}}</th>
+											<th class="subheading">{{labelConstants.track_UG_deep_dive_campaign_view_time_remaining_column}}</th>
+										</tr>
+									</thead>
+								</table>
+								<a href="#" class="zoomThis"></a>
+							</section>
+							<section ng-if="currentView=='engagement'" id="tab2"
+								class="tablecontent tab_content contentScroll-disabled">
+								<table ng-hide="!dataLoaded" class="GDtable" my-table options="engagementTableOptions">
+									<colgroup>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+									</colgroup>
+									<thead>{{dataBuffer}}
+										<tr>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_user_group_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_active_users_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_average_login_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_recurring_booking_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_arpu_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_engagement_level_column}}</th>
+											<th>{{labelConstants.track_UG_deep_dive_engagement_view_engagement_score_column}}</th>
+										</tr>
+									</thead>
+								</table>
+								<a href="#" class="zoomThis"></a>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!----------------------------------------------->
+
+
+
+<div id="boxes" ng-controller="modalContentController" ng-if="isUserGroupViewable">
+
+	<div id="campaignDialog" class="window small-window"  style="min-width:500px;">
+		<div class="modalheading">
+			<h2>&nbsp;</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent" >
+		 <ng-include ng-show="error" src="'partials/error.htm'" ></ng-include>
+			<table ng-hide ="error" my-table options="options">
+				<thead>
+					<tr>
+						<th>Campaign</th>
+						<th>Channel</th>
+						<th>Time Remaining</th>
+					</tr>
+					</thead>
+				
+			</table>
+		</div>
+	</div>
+	
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2>Table</h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
+<div ng-hide ng-controller="userGroupInitController"></div>

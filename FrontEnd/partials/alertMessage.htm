@@ -1,0 +1,9 @@
+<div ng-if="showError" class="alert alert-danger" role="alert">Network Error !!</div>
+
+<!-- For Login Page -->
+<div ng-if="showNetworkError" class="alert alert-danger login-error" role="alert">Network Error !!</div>
+<div ng-if="loginError" class="alert alert-danger login-error" role="alert">The username or password is incorrect</div>
+
+<!-- For Change Password Page -->
+<div ng-if="pwdsCannotSameError" class="alert alert-danger login-error" role="alert">Old and new password must not be same</div>
+<div ng-if="pwdsDoesNotMatchError" class="alert alert-danger login-error" role="alert">New and confirm password does not match</div>

@@ -1,0 +1,154 @@
+<div ng-controller="filtersController">
+<article ng-if="thisPage=='/builddo' || thisPage=='/review-do'" class="title_part clearfix">
+	<p ng-if="thisPage=='/builddo' || thisPage=='/review-do'"  class="filterTexts">
+		<strong>Filter: </strong> {{labelConstants.dw_filters_builddo_text}}: 
+	    <span ng-if='selectedUG.length>0'
+			class="filterText first-child">{{labelConstants.dw_filters_user_group_title}}: <span
+			class="filterText"
+			ng-repeat="userGroup in selectedUG"> {{userGroup.groupName}}</span>
+		</span> 
+		<span ng-if='selectedUG.length>0' class="sclose"
+			ng-click="clearUserGroups()">
+		</span>
+		<span ng-if='selectedCA.length>0'
+			class="filterText first-child">{{labelConstants.dw_filters_conversion_activity_title}}: 
+			<span class="filterText first-child" ng-if = "activity.default"
+				ng-repeat="activity in selectedCA">{{activity.convActivityName | trimString}}
+			</span>
+		</span>
+			<span ng-if='selectedCA.length>0' class="sclose"
+			ng-click="clearConversionActivities()">
+		</span>
+		<span
+			class="filterText" ng-if="uplift!=0 && uplift!='0.0%'"> &nbsp;Conversion Uplift > {{uplift}}  </span><span
+			class="sclose" ng-if="uplift!=0 && uplift!='0.0%'" ng-click="clearConversionUplift()">
+		</span>
+	    <span
+			class="filterText" ng-if="dateCleared==false"> &nbsp;Active till date: {{fromDate}} to {{toDate}}  </span><span
+			class="sclose" ng-if="dateCleared==false" ng-click="clearActiveDate()">
+		</span>
+	</p>
+	<a href="#" class="pull-right xclose"></a>
+	<!-- <span ng-if="thisPage=='/builddo'" class="valid30 pull-right"> Valid upto next 30 days</span> -->
+</article>
+
+<div ng-class="{'filterContainer': true, 'filterCollapsed':thisPage!='/index'}">
+	<div style="width: 100%; margin: 0 auto">
+		<div class="halfwidth">
+			<section class="innerwrap">
+				<h3>{{labelConstants.dw_filters_user_group_title}}</h3>
+				<div class="DragDrop clearfix">
+					<div id="fieldChooser" tabindex="1">
+						<div class="clearfix">
+							<h4>Available {{labelConstants.dw_filters_user_group_title}}</h4>
+							<h4>Selected {{labelConstants.dw_filters_user_group_title}}</h4>
+						</div>
+						<div class="clearfix">
+							<div class="DragDropContainer" custom-scroll-box data-drop="true" ng-model="availUG" jqyoui-droppable="{multiple:true}" data-jqyoui-options="{accept:'.fc-field:not([ng-model=availCA]):not([ng-model=selectedCA])'}">
+                                <div id="sourceFields1">
+								    <div class="fc-field" data-id="{{userGroup.groupId}}" data-jqyoui-options="{revert: 'invalid', containment: '#fieldChooser'}" data-default="{{userGroup.default}}" ng-init="userGroup.default = false"
+									    ng-repeat="userGroup in availUG" data-drag="true" jqyoui-draggable="{index: {{$index}},animate:false}" ng-model="availUG">
+									    {{userGroup.groupName}}</div>
+                                </div>
+						    </div>
+							<div class="DragDropContainer" custom-scroll-box data-drop="true" ng-model="selectedUG" jqyoui-droppable="{multiple:true}"  data-jqyoui-options="{accept:'.fc-field:not([ng-model=availCA]):not([ng-model=selectedCA])'}">
+								<div id="destinationFields1">
+                                    <div class="fc-field" ng-repeat="userGroup in selectedUG" data-jqyoui-options="{revert: 'invalid', containment: '#fieldChooser'}" data-default="{{userGroup.default}}" ng-init="userGroup.default = true"
+									    data-id="{{userGroup.groupId}}"  data-drag="true" jqyoui-draggable="{index: {{$index}},animate:false}" ng-model="selectedUG">{{userGroup.groupName}}</div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="halfwidth">
+			<section class="innerwrap">
+				<h3>{{labelConstants.dw_filters_conversion_activity_title}}</h3>
+				<div class="DragDrop clearfix">
+					<div id="fieldChooser1" tabindex="1">
+						<div class="clearfix">
+							<h4>Available {{labelConstants.dw_filters_conversion_activity_title}}</h4>
+							<h4>Selected {{labelConstants.dw_filters_conversion_activity_title}}</h4>
+						</div>
+						<div class="clearfix">
+							<div class="DragDropContainer1" custom-scroll-box data-drop="true" ng-model="availCA" jqyoui-droppable="{multiple:true}" data-jqyoui-options="{accept:'.fc-field:not([ng-model=availUG]):not([ng-model=selectedUG])'}">
+								<div id="sourceFields1">
+									<div class="fc-field" tabindex="1"
+										data-id="{{activity.convActivityId}}" data-jqyoui-options="{revert: 'invalid', containment: '#fieldChooser1'}" ng-init="activity.default = false"  data-default="{{activity.default}}"
+										ng-repeat="activity in availCA"  data-drag="true" jqyoui-draggable="{index: {{$index}},animate:false}" ng-model="availCA">
+										{{activity.convActivityName}}</div>
+								</div>
+							</div>
+							<div class="DragDropContainer1" custom-scroll-box data-drop="true" ng-model="selectedCA" jqyoui-droppable="{multiple:true}" data-jqyoui-options="{accept:'.fc-field:not([ng-model=availUG]):not([ng-model=selectedUG])'}">
+								<div id="destinationFields1">
+									<div class="fc-field " ng-repeat="activity in selectedCA" data-jqyoui-options="{revert: 'invalid', containment: '#fieldChooser1'}" data-default="{{activity.default}}"  ng-init="activity.default = true"
+										data-id="{{activity.convActivityId}}"  data-drag="true" jqyoui-draggable="{index: {{$index}},animate:false}" ng-model="selectedCA">
+										{{activity.convActivityName}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<form name = "filterForm">
+		<div class="filtersplit clearfix">
+			<div class="onebyfourth">
+				<section class="innersplit">
+					<h3>{{labelConstants.dw_filters_conversion_uplift_title}}</h3>
+					<div class="switch on">
+						<a href="" rel="ConversionUplift"></a><span class="num">Number</span>
+						<span class="per"> Percentage</span>
+					</div>
+					<div class="lblvalue">Greater than</div>
+					<div class="Conversion clearfix ConversionUplift">
+						<div class="pull-left rangeslider">
+							<div slider config="sliderConfig" value="value.num" id="1"
+								max="sliderConfig.max" class="SliderRange"></div>
+						</div>
+						<ng-form>
+						<div class="pull-right slidervalue">
+							<input type="text" class="amountper1 perval" ng-model="value.per" />
+							<input name="sliderNumber" type="number" class="amountnum1 numval" ng-model="value.num" />
+						</div>
+						</ng-form>
+					</div>
+				</section>
+			</div>
+			<div class="onebyfourth">
+				<section class="innersplit">
+					<h3>{{labelConstants.dw_filters_active_till_date_title}}</h3>
+					<div class="clearfix">
+						<div class="datevalues" style="clear: left">
+							<div class="lblvalue">Greater than</div>
+							<input type="text" ng-model="fromDate" ng-change="dateChanged()" ng-readonly="true" datepicker id="from"  />
+                        </div>
+						<div class="datevalues">
+							<div class="lblvalue">Less than</div>
+							<input type="text" ng-model="toDate"ng-change="dateChanged()" ng-readonly="true" datepicker id="to"  />
+                        </div>
+					</div>
+				</section>
+			</div>
+			<div class="onebyfourth onebyfourth1 filter-buttons-single">
+				<div>
+					<a class="btn btn-cancel btn-org pull-right" href="#" ng-click="closeFilter()">
+						{{labelConstants.dw_filters_close_filter_button_text}}</a>
+					<a ng-click="clearFilterClicked()" href="#" id="clear-filter"
+						class="btn btn-cancel btn-org pull-right">
+						{{labelConstants.dw_filters_clear_filter_button_text}}</a>
+					<a href="#" ng-click="builddoButtonClicked('/builddo')"
+						ng-if="thisPage != '/review-do'"
+						class="btn btn-org btn-cancel pull-right" 
+						ng-disabled="loadingDOSearchResult" 
+						ng-class="{spinnerButton: loadingDOSearchResult==true}">{{labelConstants.dw_filters_show_do_button_text}}</a>
+					<input type="submit" ng-if="thisPage == '/review-do'" value="Filter" href="#" ng-click="filterSearchResults()"
+						class="btn btn-org pull-right ">
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+</div>

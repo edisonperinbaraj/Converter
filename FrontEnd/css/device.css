@@ -1,0 +1,214 @@
+
+@media all and (max-width:1024px)and (min-width:768px)
+{
+  .filtersplit > .onebyfourth { width:27%;}
+  .filtersplit > .onebyfourth1 { width:100%}
+  .datevalues input[type="text"] { margin-top:5px}
+  /*.select-wrapper, .select-wrapper select { width:75px;}*/
+    .Container {
+        width:auto;
+    }
+    
+    #tab-container {
+        width:48%;
+    }
+    .headerContainer
+	{
+       height:55px;
+    }
+    .logo {
+        float:left;
+		width:27%;
+    }
+	#tab-container ul.tab-menu li
+	{
+		padding:45px 10px 0px;
+		height:21px;
+	}
+	#tab-container ul.tab-menu li.active
+	{
+	   padding:45px 10px 0px;
+	}
+	
+	
+	    
+    #contentContainer
+    {
+        width:auto;
+    }
+    
+    
+.engagedActivities ul li
+{
+    padding:5px 5px 0;
+}
+
+.engagedUserGroup ul li
+{
+    padding:5px 5px 0 10px;
+}
+
+.title
+{
+    float:left;
+}
+
+/* Content End start here */
+ 
+ .actionsPannel ul li
+ {
+     width:70%;
+ }
+ 
+    
+/* footer start here */
+.footerInsidePannel
+{
+    width:auto;
+}
+
+/* footer End here */
+}
+
+@media (max-width: 1060px){
+  .summary-list li p{height:35px;}
+  .summary-value.datepanel
+  {
+      padding-top:8px !important;
+  }
+  .ConversionPanel ul li
+  {
+      padding-right:5px;
+  }
+  .TimeWidth
+  {
+      width:17px !important;
+  }
+ .rangeslider
+ {
+     width:144px;
+ }
+ .innersplit
+ {
+    padding: 10px 10px 27px 5px;     
+ }
+ .filtersplit .ConversionUplift
+ {
+     padding-left:7px;
+     margin-left:0px !important;
+ }
+}
+
+
+@media all and (max-width:1280px)and (min-width:1026px)
+{
+    .Container {
+        width:auto;
+    }
+    
+    #tab-container {
+        width:48%;
+    }
+    .headerContainer
+	{
+       height:66px;
+    }
+    .logo {
+    	float:left;
+		width:27%;
+    }
+	#tab-container ul.tab-menu li
+	{
+		padding:45px 15px 0px;
+		height:21px;
+	}
+	#tab-container ul.tab-menu li.active
+	{
+	   padding:45px 15px 0px;
+	}
+
+/* Content style start here */
+
+
+#contentContainer
+{
+    width:auto;
+}
+
+.engagedActivities ul li
+{
+    padding:5px 5px 0;
+}
+
+.engagedUserGroup ul li
+{
+    padding:5px 5px 0 10px;
+}
+
+/* Content End start here */
+ 
+ .actionsPannel ul li
+ {
+     width:70%;
+ }
+ 
+    
+/* footer start here */
+.footerInsidePannel
+{
+    width:auto;
+}
+
+/* footer End here */
+    
+    
+/* table style */
+#flip-scroll .cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+#flip-scroll * html .cf { zoom: 1; }
+#flip-scroll *:first-child+html .cf { zoom: 1; }
+#flip-scroll table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+ 
+#flip-scroll th,
+#flip-scroll td { margin: 0; vertical-align: top; }
+#flip-scroll th { text-align: left; }
+#flip-scroll table { display: block; position: relative; width: 100%; }
+#flip-scroll thead { display: block; float: left; }
+#flip-scroll tbody { display: block; width: auto; position: relative; overflow-x: auto; white-space: nowrap; }
+#flip-scroll thead tr { display: block; }
+#flip-scroll th { display: block; text-align: right; }
+#flip-scroll tbody tr { display: inline-block; vertical-align: top; }
+#flip-scroll td { display: block; min-height: 1.25em; text-align: left; }
+ 
+ 
+/* sort out borders */
+ 
+#flip-scroll th { border-bottom: 0; border-left: 0; }
+#flip-scroll td { border-left: 0; border-right: 0; border-bottom: 0; }
+#flip-scroll tbody tr { border-left: 1px solid #babcbf; }
+#flip-scroll th:last-child,
+#flip-scroll td:last-child { border-bottom: 1px solid #babcbf; } 
+    
+}
+
+
+
+
+
+@media all and (max-width:1400px)and (min-width:1280px)
+{
+    .title
+    {
+        float:left;
+    }
+    
+}
+
+@media all and (max-width:1920px)and (min-width:1880px)
+{
+    .title
+    {
+        float:left;
+    }
+   
+    
+}

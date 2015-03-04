@@ -1,0 +1,107 @@
+<div class="contentpannel" ng-if="isDataSyncViewable">
+
+	<div class="ContainerBox decision-option"
+		ng-controller="dataSyncStatusController" >
+		<article class="title_panel clearfix">
+			<p class="pull-left heading">
+				<span> Data Sync Status </span>
+			</p>
+		</article>
+		<div class="review-panel">
+			<div class="dataTables_wrapper review-panel">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+				<table ng-hide="error || !dataLoaded"
+					class="GDtable dataTable data-sync-status" options="options" my-table table-data="syncHistory">
+					<colgroup>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+					</colgroup>
+					<thead class="ng-scope">
+						<tr role="row">
+							<th class="">S.No.</th>
+							<th class="" >Data Source</th>
+							<th class="">Last Update Date</th>
+							<th class="">Next Update Date</th>
+							<th class="">Error/ Exception</th>
+							<th class="">Select Action</th>
+						</tr>
+					</thead>
+				</table>
+					<a href="#" class="zoomThis"></a>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<div class="ContainerBox decision-option"
+		ng-controller="dataSyncHistoryController" > 
+		<section class="">
+			<div class="pull-right lmargin">
+				<div id="thisweekPanel">
+					<input type="button" class="btn btn-org btn-history pull-right zmargin" ng-click="viewDataSyncHistory()" value="View History">
+				</div>
+			</div>
+			<div  ng-class="{'pull-right data-date-range':true,displayBlock: selectRange=='range'}">
+				<div id="thisweekPanel">
+					<label>From</label> 
+					<input type="text" id="from" class="calendar" placeholder="MM/DD/YYYY"
+						ng-model="fromDate" ng-readonly="true" datepicker />
+					 <label>To</label>
+					  <input type="text" class="calendar" id="to" placeholder="MM/DD/YYYY" 
+					    ng-model="toDate" ng-readonly="true" datepicker />
+				</div>
+			</div>
+				<div class="filter-control filter-control1">
+					<label>Time Period</label> 
+					<select ng-model="selectRange">
+						<option value="1week">Last 1 week</option>
+						<option value="1month">Last 1 month</option>
+						<option value="range">Specify range</option>
+					</select>
+				</div>
+
+		</section>
+		<article class="title_panel clearfix">
+			<p class="pull-left heading">
+				<span> Data Sync History </span>
+			</p>
+		</article>
+		<div class="review-panel">
+			<div class="review-panel">
+				<div class="progress-loading" ng-if="!error && !dataLoaded"></div>
+				<ng-include ng-show="error" src="'partials/error.htm'"></ng-include>
+				<table ng-hide="error || !dataLoaded" class="GDtable dataTable data-sync-history" my-table options="options" >
+				<colgroup>
+						<col>
+						<col>
+						<col>
+				</colgroup>
+					<thead class="ng-scope">
+						<tr role="row">
+							<th class="" width="50px">S.No.</th>
+							<th class="">Data and Time</th>
+							<th class="">Error/ Exception</th>
+						</tr>
+					</thead>
+				</table>
+					<a href="#" class="zoomThis"></a>
+			</div>
+		</div>
+	</div>
+	<div ng-controller="dataSyncInit"></div>
+</div>
+<!----------------------------------------------->
+<div id="boxes">
+	<div id="tableZoom" class="window">
+		<div class="modalheading">
+			<h2 id="h2"></h2>
+			<a href="#" class="close"></a>
+		</div>
+		<div class="modalcontent"></div>
+	</div>
+</div>
+<div id="mask"></div>
